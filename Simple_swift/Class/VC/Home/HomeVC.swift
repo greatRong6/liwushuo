@@ -38,6 +38,7 @@ class HomeVC: WYBaseTableViewVC {
         
         let scan = ScanVC.init()
         scan.title = "扫一扫"
+        scan.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(scan, animated: true)
         
     }

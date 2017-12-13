@@ -23,6 +23,7 @@ class SingleVC: WYBaseCollectionVC {
         self.navigationItem.rightBarButtonItem = rightBtnItem
 
         LoadCollectNibCellClass(view: self.collectionView, name: "SingleCell")
+        
         // Do any additional setup after loading the view.
     }
     
