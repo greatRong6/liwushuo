@@ -10,6 +10,8 @@ import UIKit
 
 class SingleVC: WYBaseCollectionVC {
 
+    var simpleData:SimpleData?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,7 +26,22 @@ class SingleVC: WYBaseCollectionVC {
 
         LoadCollectNibCellClass(view: self.collectionView, name: "SingleCell")
         
+        self.simpleData = SimpleData.init()
+        
+        self.loadData()
+        
         // Do any additional setup after loading the view.
+    }
+    
+    func loadData(){
+        
+        self.simpleData?.loadProductData { (success) in
+            if success{
+                self.collectionView.reloadData()
+            }else{
+                
+            }
+        }
     }
     
     @objc func searchClick(){
@@ -32,11 +49,13 @@ class SingleVC: WYBaseCollectionVC {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 8
+//        return 8
+        return (self.simpleData?.dataSource.count)!
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell:SingleCell = collectionView.dequeueReusableCell(withReuseIdentifier: "SingleCell", for: indexPath) as! SingleCell
+        cell.initWithData((self.simpleData?.dataSource[indexPath.row])!)
         return cell
     }
     

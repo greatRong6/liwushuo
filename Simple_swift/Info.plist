@@ -49,5 +49,10 @@
 	<string>app请求查看相册</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>app请求允许使用定位服务</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 </dict>
 </plist>

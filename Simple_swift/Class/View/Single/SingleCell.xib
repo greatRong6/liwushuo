@@ -68,6 +68,12 @@
                 <constraint firstAttribute="trailing" secondItem="Zht-AR-Mxa" secondAttribute="trailing" constant="5" id="ZDs-nf-pQM"/>
                 <constraint firstItem="qrG-Mf-ucN" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="g3q-Fp-IhA"/>
             </constraints>
+            <connections>
+                <outlet property="nameLabel" destination="dhh-Pw-2FJ" id="5Lf-Md-jrF"/>
+                <outlet property="number" destination="Zht-AR-Mxa" id="Llb-Kw-fub"/>
+                <outlet property="picImageV" destination="qrG-Mf-ucN" id="y64-QH-Fck"/>
+                <outlet property="price" destination="WUJ-t2-HbB" id="V8x-d6-pt3"/>
+            </connections>
             <point key="canvasLocation" x="-321" y="-71"/>
         </collectionViewCell>
     </objects>

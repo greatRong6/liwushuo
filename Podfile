@@ -8,5 +8,6 @@ pod 'SDWebImage'
 pod 'Alamofire'
 pod 'SnapKit'
 pod 'IQKeyboardManagerSwift'
+pod 'MJExtension'
 
 end  
