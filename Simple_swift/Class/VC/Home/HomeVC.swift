@@ -31,7 +31,13 @@ class HomeVC: WYBaseTableViewVC {
         let rightBtnItem = UIBarButtonItem.init(customView: searchBtn)
         self.navigationItem.rightBarButtonItem = rightBtnItem
         
+        LoadCellClass(view: self.tableView, className: HomeCell.self, name: "HomeCell")
+        
         // Do any additional setup after loading the view.
+    }
+    
+    override func loadMoreData() {
+        
     }
     
     @objc func scanClick(){
@@ -56,8 +62,7 @@ class HomeVC: WYBaseTableViewVC {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = UITableViewCell.init(style: .default, reuseIdentifier: "cellId")
-        cell.textLabel?.text = "qwewe"
+        let cell:HomeCell = tableView.dequeueReusableCell(withIdentifier: "HomeCell") as! HomeCell
         cell.selectionStyle = .none
         return cell
         

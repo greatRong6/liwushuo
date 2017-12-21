@@ -10,6 +10,11 @@ import UIKit
 
 class WYBaseCollectionVC: BaseVC,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     
+    var pageNo:Int = 1
+    var pageSize:Int = 10
+    var pullDownRefreshed:Bool = true
+    var loadMoreRefreshed:Bool = true
+
     lazy var collectionView:UICollectionView = {
        
         var tableFrame:CGRect = self.view.bounds
@@ -24,12 +29,34 @@ class WYBaseCollectionVC: BaseVC,UICollectionViewDelegate,UICollectionViewDataSo
         return collecitonView
         
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.view.addSubview(self.collectionView)
+        
+        weak var weakSelf = self
+        if self.pullDownRefreshed {
+            self.collectionView.mj_header = MJRefreshNormalHeader.init(refreshingBlock: {
+                weakSelf?.reloadData()
+            })
+        }
+        if self.loadMoreRefreshed {
+            self.collectionView.mj_footer = MJRefreshAutoNormalFooter.init(refreshingBlock: {
+                weakSelf?.loadMoreData()
+            })
+        }
+        
         // Do any additional setup after loading the view.
+    }
+    
+    func reloadData(){
+        self.pageNo = 1
+        self.loadMoreData()
+    }
+    
+    func loadMoreData(){
+        
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {

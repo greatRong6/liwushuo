@@ -13,5 +13,7 @@ import UIKit
 let BASE_URL = "http://api.dantangapp.com/"
     
 let Simple_Url =  BASE_URL + "v2/items"
-    
+
+var Home_Url =  BASE_URL + "v1/channels/"
+
 

@@ -17,6 +17,9 @@ class SingleVC: WYBaseCollectionVC {
         
         self.navigationItem.leftBarButtonItem = nil
         
+        self.loadMoreRefreshed = true
+        self.pullDownRefreshed = true
+        
         let searchBtn = UIButton.init(type: .custom)
         searchBtn.frame = CGRect(x: 0,y: 0,width: 20,height: 20)
         searchBtn.setImage(UIImage.init(named: "Feed_SearchBtn"), for: .normal)
@@ -28,18 +31,38 @@ class SingleVC: WYBaseCollectionVC {
         
         self.simpleData = SimpleData.init()
         
-        self.loadData()
         
         // Do any additional setup after loading the view.
     }
     
-    func loadData(){
+    override func loadMoreData() {
+        
+        self.simpleData?.pageNum = self.pageNo
+        self.simpleData?.pageSize = self.pageSize
         
         self.simpleData?.loadProductData { (success) in
             if success{
-                self.collectionView.reloadData()
-            }else{
                 
+                if self.simpleData?.dataSource.count == 0{
+                    self.collectionView.mj_footer.isHidden = true
+                }else{
+                    
+                    if ((self.simpleData?.dataSource.count)! < self.pageSize) {
+                        self.collectionView.mj_footer.isHidden = true
+                    }else{
+                        self.collectionView.mj_footer.isHidden = false
+                    }
+
+                }
+                self.collectionView.mj_header.endRefreshing()
+                self.collectionView.mj_footer.endRefreshing()
+                
+                self.pageNo = self.pageNo + 1
+                self.collectionView.reloadData()
+                
+            }else{
+                self.collectionView.mj_header.endRefreshing()
+                self.collectionView.mj_footer.endRefreshing()
             }
         }
     }
@@ -49,7 +72,6 @@ class SingleVC: WYBaseCollectionVC {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return 8
         return (self.simpleData?.dataSource.count)!
     }
     
@@ -71,7 +93,7 @@ class SingleVC: WYBaseCollectionVC {
     
     //item 的尺寸
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (DEF_SCREEN_WIDTH-10)/2, height: 200);
+        return CGSize(width: (DEF_SCREEN_WIDTH-10)/2, height: 210);
     }
 
 

@@ -12,6 +12,10 @@ class WYBaseTableViewVC: BaseVC,UITableViewDelegate,UITableViewDataSource {
     
     var tableViewStyle:UITableViewStyle?
     
+    var pageNo:Int = 1
+    var pageSize:Int = 10
+    var pullDownRefreshed:Bool = true
+    var loadMoreRefreshed:Bool = true
 
     lazy var tableView:UITableView = {
         var tableFrame:CGRect = self.view.bounds
@@ -30,7 +34,29 @@ class WYBaseTableViewVC: BaseVC,UITableViewDelegate,UITableViewDataSource {
         super.viewDidLoad()
 
         self.view.addSubview(self.tableView)
+        
+        weak var weakSelf = self
+        if self.pullDownRefreshed {
+            self.tableView.mj_header = MJRefreshNormalHeader.init(refreshingBlock: {
+                weakSelf?.reloadData()
+            })
+        }
+        if self.loadMoreRefreshed {
+            self.tableView.mj_footer = MJRefreshAutoNormalFooter.init(refreshingBlock: {
+                weakSelf?.loadMoreData()
+            })
+        }
+
         // Do any additional setup after loading the view.
+    }
+    
+    func reloadData(){
+        self.pageNo = 1
+        self.loadMoreData()
+    }
+    
+    func loadMoreData(){
+        
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

@@ -9,5 +9,7 @@ pod 'Alamofire'
 pod 'SnapKit'
 pod 'IQKeyboardManagerSwift'
 pod 'MJExtension'
+pod 'MJRefresh'
+pod 'ScrollPageView'
 
 end  
