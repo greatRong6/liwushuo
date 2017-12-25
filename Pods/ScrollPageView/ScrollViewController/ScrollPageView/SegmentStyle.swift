@@ -66,10 +66,10 @@ public struct SegmentStyle {
     /// 下面的滚动条的高度 默认2
     public var scrollLineHeight: CGFloat = 2
     /// 下面的滚动条的颜色
-    public var scrollLineColor = UIColor.brownColor()
+    public var scrollLineColor = UIColor.brown
     
     /// 遮盖的背景颜色
-    public var coverBackgroundColor = UIColor.lightGrayColor()
+    public var coverBackgroundColor = UIColor.lightGray
     /// 遮盖圆角
     public var coverCornerRadius = 14.0
     
@@ -78,7 +78,7 @@ public struct SegmentStyle {
     /// 文字间的间隔 默认15
     public var titleMargin: CGFloat = 15
     /// 文字 字体 默认14.0
-    public var titleFont = UIFont.systemFontOfSize(14.0)
+    public var titleFont = UIFont.systemFont(ofSize: 14.0)
     
     /// 放大倍数 默认1.3
     public var titleBigScale: CGFloat = 1.3

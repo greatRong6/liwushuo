@@ -34,6 +34,7 @@ class WYBaseTableViewVC: BaseVC,UITableViewDelegate,UITableViewDataSource {
         super.viewDidLoad()
 
         self.view.addSubview(self.tableView)
+        self.tableView.tableFooterView = UIView.init()
         
         weak var weakSelf = self
         if self.pullDownRefreshed {
@@ -72,6 +73,10 @@ class WYBaseTableViewVC: BaseVC,UITableViewDelegate,UITableViewDataSource {
         let cell = UITableViewCell(style:.default, reuseIdentifier: "")
         return cell;
         
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 150
     }
     
     override func didReceiveMemoryWarning() {

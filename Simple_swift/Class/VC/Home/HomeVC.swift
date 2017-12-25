@@ -9,8 +9,11 @@
  */
 
 import UIKit
+import ScrollPageView
 
 class HomeVC: WYBaseTableViewVC {
+
+    var homeData:HomeData?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,13 +34,37 @@ class HomeVC: WYBaseTableViewVC {
         let rightBtnItem = UIBarButtonItem.init(customView: searchBtn)
         self.navigationItem.rightBarButtonItem = rightBtnItem
         
-        LoadCellClass(view: self.tableView, className: HomeCell.self, name: "HomeCell")
+        self.homeData = HomeData.init()
+
+        self.loadData()
         
         // Do any additional setup after loading the view.
     }
     
-    override func loadMoreData() {
+    func loadData(){
         
+        weak var weakSelf = self
+        
+        self.homeData?.loadHomeTopData(callBlock: { (success) in
+            if success{
+                
+                var style = SegmentStyle()
+                style.showCover = true
+                style.gradualChangeTitleColor = false
+                style.coverBackgroundColor = UIColor.white
+                
+                var titleArr = [String]()
+                for model in (self.homeData?.titleArray)!{
+                    titleArr.append(model.name)
+                }
+                
+                let scroll = ScrollPageView(frame: CGRect(x: 0, y: 0, width: DEF_SCREEN_WIDTH, height: DEF_SCREEN_HEIGHT - CGFloat(KNavigaHeight) - CGFloat(KTabarHeight)), segmentStyle: style, titles: titleArr , childVcs: (weakSelf?.setChildVcs())!, parentViewController: weakSelf!)
+                weakSelf?.view.addSubview(scroll)
+
+            }else{
+                
+            }
+        })
     }
     
     @objc func scanClick(){
@@ -55,27 +82,22 @@ class HomeVC: WYBaseTableViewVC {
         self.navigationController?.pushViewController(search, animated: true)
         
     }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20;
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell:HomeCell = tableView.dequeueReusableCell(withIdentifier: "HomeCell") as! HomeCell
-        cell.selectionStyle = .none
-        return cell
+    func setChildVcs() -> [UIViewController] {
         
+        var vcArray = [Any]()
+        
+        for model in (self.homeData?.titleArray)!{
+            
+            let childVC = HomeChildVC()
+            childVC.title = model.name
+            childVC.typeId = String(model.typeId)
+            vcArray.append(childVC)
+        }
+        
+        return vcArray as! [UIViewController]
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        ProgressHUD.show("错误提示", interaction: false)
-        ProgressHUD.show()
-    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

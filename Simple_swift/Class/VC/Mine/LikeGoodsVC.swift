@@ -1,30 +1,19 @@
 //
-//  BaseVC.swift
+//  LikeGoodsVC.swift
 //  Simple_swift
 //
-//  Created by greatRong on 2017/12/7.
+//  Created by iosdev on 2017/12/22.
 //  Copyright © 2017年 gezhenrong. All rights reserved.
 //
 
 import UIKit
 
-class BaseVC: UIViewController {
+class LikeGoodsVC: WYBaseTableViewVC {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let leftBtn = UIButton.init(type: .custom)
-        leftBtn.frame = CGRect(x: 0,y: 0, width: 20,height: 20)
-        leftBtn.setImage(UIImage.init(named: "leftBtn"), for: .normal)
-        leftBtn.addTarget(self, action: #selector(leftClick), for: .touchUpInside)
-        let leftBarItem = UIBarButtonItem.init(customView: leftBtn);
-        self.navigationItem.leftBarButtonItem = leftBarItem
-        
+
         // Do any additional setup after loading the view.
-    }
-    
-    @objc func leftClick() {
-        self.navigationController?.popViewController(animated: true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,9 +21,7 @@ class BaseVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    deinit {
-        print("\(self.debugDescription) --- 销毁")
-    }
+
     /*
     // MARK: - Navigation
 

@@ -14,6 +14,8 @@ let BASE_URL = "http://api.dantangapp.com/"
     
 let Simple_Url =  BASE_URL + "v2/items"
 
+let Home_TitleUrl = BASE_URL + "v2/channels/preset"
+
 var Home_Url =  BASE_URL + "v1/channels/"
 
 

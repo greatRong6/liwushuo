@@ -34,7 +34,7 @@ public class ScrollPageView: UIView {
     static let cellId = "cellId"
     public var segmentStyle = SegmentStyle()
     /// 附加按钮点击响应
-    public var extraBtnOnClick: ((extraBtn: UIButton) -> Void)? {
+    public var extraBtnOnClick: ((_ extraBtn: UIButton) -> Void)? {
         didSet {
             segView.extraBtnOnClick = extraBtnOnClick
         }
@@ -65,12 +65,12 @@ public class ScrollPageView: UIView {
     }
     
     private func commonInit() {
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = UIColor.white
         segView = ScrollSegmentView(frame: CGRect(x: 0, y: 0, width: bounds.size.width, height: 44), segmentStyle: segmentStyle, titles: titlesArray)
         
         guard let parentVc = parentViewController else { return }
         
-        contentView = ContentView(frame: CGRect(x: 0, y: CGRectGetMaxY(segView.frame), width: bounds.size.width, height: bounds.size.height - 44), childVcs: childVcs, parentViewController: parentVc)
+        contentView = ContentView(frame: CGRect(x: 0, y: (segView.frame).maxY, width: bounds.size.width, height: bounds.size.height - 44), childVcs: childVcs, parentViewController: parentVc)
         contentView.delegate = self
         
         addSubview(contentView)
@@ -80,7 +80,7 @@ public class ScrollPageView: UIView {
         segView.titleBtnOnClick = {[unowned self] (label: UILabel, index: Int) in
             
             // 切换内容显示
-            self.contentView.setContentOffSet(CGPoint(x: self.contentView.bounds.size.width * CGFloat(index), y: 0), animated: false)
+            self.contentView.setContentOffSet(offSet: CGPoint(x: self.contentView.bounds.size.width * CGFloat(index), y: 0), animated: false)
         }
 
 
@@ -100,7 +100,7 @@ extension ScrollPageView {
     /// 给外界设置选中的下标的方法
     public func selectedIndex(selectedIndex: Int, animated: Bool) {
         // 移动滑块的位置
-        segView.selectedIndex(selectedIndex, animated: animated)
+        segView.selectedIndex(selectedIndex: selectedIndex, animated: animated)
         
     }
 
@@ -112,8 +112,8 @@ extension ScrollPageView {
         self.childVcs = newChildVcs
         self.titlesArray = titles
         
-        segView.reloadTitlesWithNewTitles(titlesArray)
-        contentView.reloadAllViewsWithNewChildVcs(childVcs)
+        segView.reloadTitlesWithNewTitles(titles: titlesArray)
+        contentView.reloadAllViewsWithNewChildVcs(newChildVcs: childVcs)
     }
 }
 

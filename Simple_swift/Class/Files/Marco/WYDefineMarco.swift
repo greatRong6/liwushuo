@@ -35,8 +35,8 @@ func DefauleColor () -> UIColor{
 func kIS_IOS7() ->Bool { return (UIDevice.current.systemVersion as NSString).doubleValue >= 7.0 }
 func kIS_IOS8() -> Bool { return (UIDevice.current.systemVersion as NSString).doubleValue >= 8.0 }
 
-let KNavigaHeight = isIPhoneX ? 88 : 64
-let KTabarHeight = isIPhoneX ? 83 : 49
+let KNavigaHeight = isIPhoneX ? 88.0 : 64.0
+let KTabarHeight = isIPhoneX ? 83.0 : 49.0
 
 func LoadCellClass(view: UITableView, className: AnyClass, name: String){
     return view.register(className.self, forCellReuseIdentifier: name)

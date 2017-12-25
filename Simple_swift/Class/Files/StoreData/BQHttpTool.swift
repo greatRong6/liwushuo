@@ -25,7 +25,7 @@ class BQHttpTool: NSObject {
         sessionManager = SessionManager(configuration: config)
         ProgressHUD.show("正在加载...", interaction: false)
         
-        
+        print(url)
         
         Alamofire.request(url, method: method, parameters: parameters as? Parameters, encoding: URLEncoding.default).responseJSON { (response) in
             ProgressHUD.dismiss()
