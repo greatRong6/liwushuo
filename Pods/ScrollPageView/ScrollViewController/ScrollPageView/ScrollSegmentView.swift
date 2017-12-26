@@ -44,8 +44,8 @@ public class ScrollSegmentView: UIView {
     public var extraBtnOnClick: ((_ extraBtn: UIButton) -> Void)?
     /// self.bounds.size.width
     private var currentWidth: CGFloat = 0
-    /// 遮盖x和文字x的间隙
-    private var xGap = 5
+    /// 遮盖x和文字x的
+    private var xGap = 20
     /// 遮盖宽度比文字宽度多的部分
     private var wGap: Int {
         return 2 * xGap

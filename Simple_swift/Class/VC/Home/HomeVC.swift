@@ -52,13 +52,15 @@ class HomeVC: WYBaseTableViewVC {
                 style.showCover = true
                 style.gradualChangeTitleColor = false
                 style.coverBackgroundColor = UIColor.white
-                
+
                 var titleArr = [String]()
                 for model in (self.homeData?.titleArray)!{
                     titleArr.append(model.name)
                 }
                 
                 let scroll = ScrollPageView(frame: CGRect(x: 0, y: 0, width: DEF_SCREEN_WIDTH, height: DEF_SCREEN_HEIGHT - CGFloat(KNavigaHeight) - CGFloat(KTabarHeight)), segmentStyle: style, titles: titleArr , childVcs: (weakSelf?.setChildVcs())!, parentViewController: weakSelf!)
+                scroll.segmentStyle.showLine = true
+                scroll.segmentStyle.scrollLineColor = UIColor.blue
                 weakSelf?.view.addSubview(scroll)
 
             }else{
@@ -79,6 +81,8 @@ class HomeVC: WYBaseTableViewVC {
     @objc func searchClick(){
         
         let search = SearchVC.init()
+        search.hidesBottomBarWhenPushed = true
+        search.title = "搜索一下"
         self.navigationController?.pushViewController(search, animated: true)
         
     }

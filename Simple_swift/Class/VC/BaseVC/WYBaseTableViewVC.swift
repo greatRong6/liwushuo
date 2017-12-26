@@ -52,14 +52,14 @@ class WYBaseTableViewVC: BaseVC,UITableViewDelegate,UITableViewDataSource {
     }
     
     func reloadData(){
-        self.pageNo = 1
+        self.pageNo = 0
         self.loadMoreData()
     }
     
     func loadMoreData(){
         
     }
-    
+        
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -76,7 +76,7 @@ class WYBaseTableViewVC: BaseVC,UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 150
+        return 0
     }
     
     override func didReceiveMemoryWarning() {

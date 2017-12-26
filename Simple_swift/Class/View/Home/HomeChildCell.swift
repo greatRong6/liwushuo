@@ -22,8 +22,8 @@ class HomeChildCell: UITableViewCell {
     }
     
     func initWithData(_ homeModel:HomeModel){
-
-        self.picImageV.sd_setImage(with: URL(string: homeModel.cover_image_url), placeholderImage: UIImage(named: "nopic.jpg"))
+        
+        self.picImageV.sd_setImage(with: URL(string: homeModel.cover_image_url as String), placeholderImage: UIImage(named: "nopic.jpg"))
         self.titleLabel.text = homeModel.short_title
         
     }

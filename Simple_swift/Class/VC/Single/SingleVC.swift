@@ -11,7 +11,8 @@ import UIKit
 class SingleVC: WYBaseCollectionVC {
 
     var simpleData:SimpleData?
-    
+    var dataSource: [SimpleModel] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,6 +32,8 @@ class SingleVC: WYBaseCollectionVC {
         
         self.simpleData = SimpleData.init()
         
+        self.collectionView.mj_header.state = .refreshing
+        
         // Do any additional setup after loading the view.
     }
     
@@ -39,29 +42,30 @@ class SingleVC: WYBaseCollectionVC {
         self.simpleData?.pageNum = self.pageNo
         self.simpleData?.pageSize = self.pageSize
         
+        weak var weakSelf = self
+        
         self.simpleData?.loadProductData { (success) in
             if success{
                 
-                if self.simpleData?.dataSource.count == 0{
-                    self.collectionView.mj_footer.isHidden = true
+                if weakSelf?.pageNo == 0{
+                    weakSelf?.collectionView.mj_header.endRefreshing()
+                    weakSelf?.dataSource.removeAll()
                 }else{
-                    
-                    if ((self.simpleData?.dataSource.count)! < self.pageSize) {
-                        self.collectionView.mj_footer.isHidden = true
-                    }else{
-                        self.collectionView.mj_footer.isHidden = false
-                    }
-
+                    weakSelf?.collectionView.mj_footer.endRefreshing()
                 }
-                self.collectionView.mj_header.endRefreshing()
-                self.collectionView.mj_footer.endRefreshing()
                 
-                self.pageNo = self.pageNo + 1
-                self.collectionView.reloadData()
+                weakSelf?.dataSource = (weakSelf?.dataSource)! + (weakSelf?.simpleData?.dataArray)!
+                
+                if (weakSelf?.simpleData?.dataArray.count)! < (weakSelf?.pageSize)!{
+                    weakSelf?.collectionView.mj_footer.resetNoMoreData()
+                }
+                
+                weakSelf?.pageNo+=1
+                weakSelf?.collectionView.reloadData()
                 
             }else{
-                self.collectionView.mj_header.endRefreshing()
-                self.collectionView.mj_footer.endRefreshing()
+                weakSelf?.collectionView.mj_header.endRefreshing()
+                weakSelf?.collectionView.mj_footer.endRefreshing()
             }
         }
     }
@@ -71,12 +75,12 @@ class SingleVC: WYBaseCollectionVC {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return (self.simpleData?.dataSource.count)!
+        return self.dataSource.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell:SingleCell = collectionView.dequeueReusableCell(withReuseIdentifier: "SingleCell", for: indexPath) as! SingleCell
-        cell.initWithData((self.simpleData?.dataSource[indexPath.row])!)
+        cell.initWithData(self.dataSource[indexPath.row])
         return cell
     }
     

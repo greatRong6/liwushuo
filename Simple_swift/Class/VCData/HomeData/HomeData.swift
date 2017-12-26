@@ -11,12 +11,12 @@ import UIKit
 class HomeData: NSObject {
     
     static let shareNetwork = HomeData()
-    var dataSource: [HomeModel] = []
+    var dataArray: [HomeModel] = []
     var titleArray: [TopModel] = []
     
-    var pageNum:Int = 1
+    var pageNum:Int = 0
     var pageSize:Int = 10
-    var typeId:String = ""
+    var home_Url:String = ""
     
     func loadHomeTopData(callBlock: @escaping (Bool) -> Void){
         let params = [
@@ -49,32 +49,28 @@ class HomeData: NSObject {
     }
     
     func loadProductData(callBlock: @escaping (Bool) -> Void){
+        
         let params = [
             "gender": 1,
-            "generation": String(self.pageNum),
+            "generation": 1,
             "limit": String(self.pageSize),
-            "offset": 0
+            "offset": String(self.pageNum)
             ] as [String : Any]
-        Home_Url = Home_Url + "\(typeId)/items"
-        BQHttpTool.request(method: .get, url: Home_Url, parameters: params as NSDictionary) { ( result : AnyObject, error: Error?) in
+                
+        BQHttpTool.request(method: .get, url: home_Url, parameters: params as NSDictionary) { ( result : AnyObject, error: Error?) in
             if error == nil{
                 print(result)
                 if result["code"] as! Int == 200{
                     
-                    let dataArray = (result["data"] as! [String: Any])["items"] as! [AnyObject]
+                    let array = (result["data"] as! [String: Any])["items"] as! [AnyObject]
+                                        
+                    //self.dataA = SimpleModel.mj_objectArray(withKeyValuesArray: dataArray) as! [SimpleModel]
                     
-                    if self.pageNum == 1{
-                        self.dataSource.removeAll()
-                    }
-                    //                    self.dataSource = SimpleModel.mj_objectArray(withKeyValuesArray: dataArray) as! [SimpleModel]
-                    
-                    self.dataSource = dataArray.map({ (item) -> HomeModel in
+                    self.dataArray = array.map({ (item) -> HomeModel in
                         
                         let model: HomeModel = HomeModel()
-//                        model.short_title = (item["data"])!["short_title"]
-//                        model.cover_image_url = (item["data"] as! [String: Any])["cover_image_url"] as! String
-
-                        model.mj_setKeyValues(item)
+                        model.short_title = item["short_title"] as! String
+                        model.cover_image_url = item["cover_image_url"] as! String
 
                         return model
                     })

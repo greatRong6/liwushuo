@@ -10,7 +10,7 @@ import UIKit
 
 class WYBaseCollectionVC: BaseVC,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     
-    var pageNo:Int = 1
+    var pageNo:Int = 0
     var pageSize:Int = 10
     var pullDownRefreshed:Bool = true
     var loadMoreRefreshed:Bool = true
@@ -51,7 +51,7 @@ class WYBaseCollectionVC: BaseVC,UICollectionViewDelegate,UICollectionViewDataSo
     }
     
     func reloadData(){
-        self.pageNo = 1
+        self.pageNo = 0
         self.loadMoreData()
     }
     
