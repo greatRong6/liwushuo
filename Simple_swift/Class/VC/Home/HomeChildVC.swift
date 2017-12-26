@@ -23,7 +23,6 @@ class HomeChildVC: WYBaseTableViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
         self.homeData = HomeData.init()
 
         LoadNibCellClass(view: self.tableView, name: "HomeChildCell")
@@ -84,6 +83,12 @@ class HomeChildVC: WYBaseTableViewVC {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let web:LoadWebVC = LoadWebVC()
+        web.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(web, animated: true)
     }
 
     override func didReceiveMemoryWarning() {

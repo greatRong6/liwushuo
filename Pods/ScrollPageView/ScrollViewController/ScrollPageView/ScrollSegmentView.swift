@@ -97,7 +97,7 @@ public class ScrollSegmentView: UIView {
             return nil
         }
         let btn = UIButton()
-//        btn.addTarget(self, action: #selector(self.extraBtnOnClick(_:)), for: .TouchUpInside)
+        btn.addTarget(self, action: #selector(extraBtnOnClick(btn:)), for: .touchUpInside)
         // 默认 图片名字
         let imageName = self.segmentStyle.extraBtnBackgroundImageName ?? ""
         btn.setImage(UIImage(named:imageName), for: .normal)
@@ -208,7 +208,7 @@ public class ScrollSegmentView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func titleLabelOnClick(tapGes: UITapGestureRecognizer) {
+    @objc func titleLabelOnClick(tapGes: UITapGestureRecognizer) {
         guard let currentLabel = tapGes.view as? CustomLabel else { return }
         currentIndex = currentLabel.tag
         
@@ -216,7 +216,7 @@ public class ScrollSegmentView: UIView {
 
     }
 
-    func extraBtnOnClick(btn: UIButton) {
+    @objc func extraBtnOnClick(btn: UIButton) {
         extraBtnOnClick?(btn)
     }
 
@@ -277,8 +277,8 @@ extension ScrollSegmentView {
             label.textAlignment = .center
             label.isUserInteractionEnabled = true
             
-//            let tapGes = UITapGestureRecognizer(target: self, action: #selector(self.titleLabelOnClick(_:)))
-//            label.addGestureRecognizer(tapGes)
+            let tapGes = UITapGestureRecognizer(target: self, action: #selector(titleLabelOnClick(tapGes:)))
+            label.addGestureRecognizer(tapGes)
             
             let size = (title as NSString).boundingRect(with: CGSize(width:CGFloat(MAXFLOAT), height:0.0), options: .usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: label.font], context: nil)
             
