@@ -8,7 +8,6 @@ PODS:
     - SDWebImage/Core (= 4.2.2)
   - SDWebImage/Core (4.2.2)
   - SnapKit (4.0.0)
-  - SwipeTableView (0.2.6)
 
 DEPENDENCIES:
   - Alamofire
@@ -18,7 +17,6 @@ DEPENDENCIES:
   - ScrollPageView
   - SDWebImage
   - SnapKit
-  - SwipeTableView
 
 SPEC CHECKSUMS:
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
@@ -28,8 +26,7 @@ SPEC CHECKSUMS:
   ScrollPageView: 81794056d616a25c4cb887098ae106a47521cf31
   SDWebImage: 89a9d32cd520bbb46eb14e541d5109b3564af198
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
-  SwipeTableView: 67d8a2e6e18bd38c188fd4fabda0b278eaa08d2f
 
-PODFILE CHECKSUM: b56d7e3588b605dc79b301d2651e3be75a295155
+PODFILE CHECKSUM: af380003b7481c5fc09043cbf81f6d5f8523636b
 
 COCOAPODS: 1.3.1

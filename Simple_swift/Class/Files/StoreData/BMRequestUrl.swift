@@ -10,11 +10,19 @@ import UIKit
 
 /// 服务器地址
 let BASE_URL = "http://api.dantangapp.com/"
-    
+
+//单品
 let Simple_Url =  BASE_URL + "v2/items"
 
+//首页头部
 let Home_TitleUrl = BASE_URL + "v2/channels/preset"
 
+//首页
 var Home_Url =  BASE_URL + "v1/channels/"
 
+//分类
+var Category_Url = BASE_URL + "v1/channel_groups/all"
+
+//专题
+var Collections_Url = BASE_URL + "v1/collections/"
 

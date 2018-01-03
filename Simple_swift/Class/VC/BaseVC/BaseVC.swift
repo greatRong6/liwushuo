@@ -13,6 +13,8 @@ class BaseVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = RGB(r: 200, g: 200, b: 200)
+        
         let leftBtn = UIButton.init(type: .custom)
         leftBtn.frame = CGRect(x: 0,y: 0, width: 20,height: 20)
         leftBtn.setImage(UIImage.init(named: "leftBtn"), for: .normal)
@@ -33,7 +35,7 @@ class BaseVC: UIViewController {
     }
     
     deinit {
-        print("\(self.debugDescription) --- 销毁")
+        print("\(self.debugDescription) 销毁")
     }
     /*
     // MARK: - Navigation

@@ -29,16 +29,18 @@ class BQHttpTool: NSObject {
         
         Alamofire.request(url, method: method, parameters: parameters as? Parameters, encoding: URLEncoding.default).responseJSON { (response) in
             ProgressHUD.dismiss()
-            let value: [String: AnyObject] = (response.result.value as? [String : AnyObject])!
+            
             if (response.result.isSuccess)
             {
+                let value: [String: AnyObject] = (response.result.value as? [String : AnyObject])!
                 finishedCallback(value as AnyObject, nil)
             }
             else
             {
                 ProgressHUD.showError("请求失败")
                 print("接口请求失败 \(url)")
-                finishedCallback(value as AnyObject,response.result.error)
+//                let value: [String: AnyObject] = (response.result.value as? [String : AnyObject])!
+//                finishedCallback(value as AnyObject,response.result.error)
             }
         }
     }

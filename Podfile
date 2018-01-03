@@ -10,7 +10,6 @@ pod 'SnapKit'
 pod 'IQKeyboardManagerSwift'
 pod 'MJExtension'
 pod 'MJRefresh'
-pod 'SwipeTableView'
 pod 'ScrollPageView'
 
 end  

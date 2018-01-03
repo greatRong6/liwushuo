@@ -24,6 +24,7 @@ class LoadWebVC: BaseVC,UIWebViewDelegate {
     }
     
     func creatUI(){
+        
         self.webView = UIWebView.init(frame: CGRect(x: 0,y: 0, width: DEF_SCREEN_WIDTH,height: DEF_SCREEN_HEIGHT - CGFloat(KNavigaHeight)))
         self.webView?.delegate = self
         self.view.addSubview(self.webView!)
@@ -36,6 +37,11 @@ class LoadWebVC: BaseVC,UIWebViewDelegate {
     func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         
         self.title = self.webView?.stringByEvaluatingJavaScript(from: "document.title")
+    
+//        if (self.title?.count)! > 7{
+//            self.title = self.title.subscriptEnd
+//        }
+        
         return true
         
     }

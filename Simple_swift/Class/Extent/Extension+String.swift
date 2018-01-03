@@ -96,6 +96,22 @@ extension String {
         return string.replacingOccurrences(of: " ", with: "")
         
     }
+    
+    func subscriptEnd (start: Int, end: Int) -> String? {
+        if start > self.count || start < 0 || start > end {
+            return nil
+        }
+        let begin = self.index(self.startIndex, offsetBy: start)
+        var terminal: Index
+        if end >= length {
+            terminal = self.index(self.startIndex, offsetBy: count)
+        } else {
+            terminal = self.index(self.startIndex, offsetBy: end + 1)
+        }
+        let range = (begin ..< terminal)
+        return self.substring(with: range)
+    }
+
  
 }
 

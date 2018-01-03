@@ -32,6 +32,7 @@ class HomeChildVC: WYBaseTableViewVC {
         self.tableView.frame = CGRect(x: 0,y: 0,width: DEF_SCREEN_WIDTH,height: DEF_SCREEN_HEIGHT - 44 - CGFloat(KTabarHeight) - CGFloat(KNavigaHeight))
         
         self.tableView.mj_header.state = .refreshing
+        self.tableView.separatorStyle = .none
         
         // Do any additional setup after loading the view.
     }
