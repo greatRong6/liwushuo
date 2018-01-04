@@ -11,7 +11,9 @@ import UIKit
 class ProjectView: UIView , UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     
     var contentData:ContentData?
-
+    typealias moreBlock = () ->Void
+    var moreButtonBlock:moreBlock?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -25,7 +27,7 @@ class ProjectView: UIView , UICollectionViewDelegate,UICollectionViewDataSource,
         
         let moreBtn = UIButton.init(type: .custom)
         moreBtn.frame = CGRect(x: DEF_SCREEN_WIDTH - 80,y: 0,width: 70,height: 40)
-        moreBtn.setTitle("查看更多 >", for: .normal)
+        moreBtn.setTitle("查看全部 >", for: .normal)
         moreBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         moreBtn.setTitleColor(UIColor.black, for: .normal)
         moreBtn.addTarget(self, action: #selector(moreClick), for: .touchUpInside)
@@ -41,7 +43,9 @@ class ProjectView: UIView , UICollectionViewDelegate,UICollectionViewDataSource,
     }
     
     @objc func moreClick(){
-        
+        if moreButtonBlock != nil{
+            moreButtonBlock!()
+        }
     }
     
     func loadData(){

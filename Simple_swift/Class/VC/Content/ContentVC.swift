@@ -35,6 +35,11 @@ class ContentVC: WYBaseTableViewVC {
         LoadCellClass(view: self.tableView, className: CategoryCell.self, name: "CategoryCell")
 
         let headView = ProjectView.init(frame: CGRect(x: 0,y: 0,width: DEF_SCREEN_WIDTH,height: 120))
+        headView.moreButtonBlock = {
+            let morePort = MorePostsVC()
+            morePort.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(morePort, animated: true)
+        }
         self.tableView.tableHeaderView = headView
         
         self.loadData()

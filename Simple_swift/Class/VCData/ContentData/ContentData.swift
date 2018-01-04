@@ -14,6 +14,7 @@ class ContentData: NSObject {
     
     var dataArray: [CategoryModel] = []
     var partArray: [PostsModel] = []
+    var limit:Int = 0
     
     //专题
     func loadCollectionsPosts(callBlock: @escaping (Bool) -> Void){
@@ -92,6 +93,47 @@ class ContentData: NSObject {
                             
                         })
                         return homeModel
+                        
+                    })
+                    callBlock(true)
+                    
+                }
+            }else{
+                callBlock(false)
+            }
+        }
+    }
+    //专题   查看全部
+    func loadCollectionsLookAll(callBlock: @escaping (Bool) -> Void){
+        
+        weak var weakSelf = self
+        
+        let params = ["limit": limit,
+                      "offset": 0]
+
+        BQHttpTool.request(method: .get, url: Collections_Url, parameters: params as NSDictionary) { ( result : AnyObject, error: Error?) in
+            if error == nil{
+                print(result)
+                if result["code"] as! Int == 200{
+                    
+                    let partArr = (result["data"] as! [String: Any])["posts"] as! [AnyObject]
+                    
+                    weakSelf?.partArray = partArr.map({ (item: AnyObject) -> PostsModel in
+                        
+                        //                        let collectioModel: CollectionModel = CollectionModel()
+                        //                        collectioModel.banner_image_url = item["channels"] as! String
+                        //
+                        //                        let channels: [AnyObject] = item["channels"] as! [AnyObject]
+                        //                        collectioModel.posts = channels.map({ (item: AnyObject) -> PostsModel in
+                        
+                        let postsModel: PostsModel = PostsModel()
+                        postsModel.title = item["title"] as! String
+                        postsModel.cover_image_url = item["cover_image_url"] as! String
+                        postsModel.content_url = item["content_url"] as! String
+                        return postsModel
+                        
+                        //                        })
+                        //                        return collectioModel
                         
                     })
                     callBlock(true)
