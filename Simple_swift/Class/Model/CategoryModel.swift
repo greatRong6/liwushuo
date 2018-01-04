@@ -44,5 +44,7 @@ class PostsModel: NSObject {
     var title:String = ""
     var updated_at:String = ""
     var content_url:String = ""
-
+    var subtitle:String = ""
+    var banner_image_url:String = ""
+    var short_title:String = ""
 }

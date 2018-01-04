@@ -25,7 +25,7 @@ class SimpleData: NSObject {
             ] as [String : Any]
         BQHttpTool.request(method: .get, url: Simple_Url, parameters: params as NSDictionary) { ( result : AnyObject, error: Error?) in
             if error == nil{
-                print(result)
+
                 if result["code"] as! Int == 200{
                     
                     let array = (result["data"] as! [String: Any])["items"] as! [AnyObject]

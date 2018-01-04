@@ -26,7 +26,7 @@ class HomeData: NSObject {
         weak var weakSelf = self
         BQHttpTool.request(method: .get, url: Home_TitleUrl, parameters: params as NSDictionary) { ( result : AnyObject, error: Error?) in
             if error == nil{
-                print(result)
+
                 if result["code"] as! Int == 200{
                     
                     let dataArray = (result["data"] as! [String: Any])["candidates"] as! [AnyObject]
@@ -59,7 +59,7 @@ class HomeData: NSObject {
                 
         BQHttpTool.request(method: .get, url: home_Url, parameters: params as NSDictionary) { ( result : AnyObject, error: Error?) in
             if error == nil{
-                print(result)
+
                 if result["code"] as! Int == 200{
                     
                     let array = (result["data"] as! [String: Any])["items"] as! [AnyObject]

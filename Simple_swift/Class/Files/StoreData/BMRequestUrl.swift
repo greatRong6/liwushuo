@@ -26,3 +26,9 @@ var Category_Url = BASE_URL + "v1/channel_groups/all"
 //专题
 var Collections_Url = BASE_URL + "v1/collections/"
 
+//专题  查看全部
+var CollectionsLookAll_Url = BASE_URL + "v1/collections"
+
+//风格  查看
+var StyleCategory_Url = BASE_URL + "v1/channels/"
+

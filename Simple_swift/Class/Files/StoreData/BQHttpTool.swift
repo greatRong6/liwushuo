@@ -27,20 +27,25 @@ class BQHttpTool: NSObject {
         
         print("请求Url：\(url)")
         
+        if parameters != nil {
+            print("参数：\(parameters as! Parameters)")
+        }else{
+            print("无参数")
+        }
+
         Alamofire.request(url, method: method, parameters: parameters as? Parameters, encoding: URLEncoding.default).responseJSON { (response) in
             ProgressHUD.dismiss()
             
             if (response.result.isSuccess)
             {
                 let value: [String: AnyObject] = (response.result.value as? [String : AnyObject])!
+                print("返回数据：\(value)")
                 finishedCallback(value as AnyObject, nil)
             }
             else
             {
                 ProgressHUD.showError("请求失败")
                 print("接口请求失败 \(url)")
-//                let value: [String: AnyObject] = (response.result.value as? [String : AnyObject])!
-//                finishedCallback(value as AnyObject,response.result.error)
             }
         }
     }

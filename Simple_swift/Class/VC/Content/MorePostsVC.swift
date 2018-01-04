@@ -22,19 +22,22 @@ class MorePostsVC: WYBaseTableViewVC {
         super.viewDidLoad()
         
         self.title = "查看全部"
-
-        LoadCellClass(view: self.tableView, className: MorePostsCell.self, name: "MorePostsCell")
         
         self.contentData = ContentData.init()
 
         self.loadData()
+        
+        self.tableView.separatorStyle = .none
+        
+        LoadCellClass(view: self.tableView, className: MorePostsCell.self, name: "MorePostsCell")
+
         // Do any additional setup after loading the view.
     }
     
     func loadData() {
 
-        self.contentData?.limit = 20
-        self.contentData?.loadCollectionsPosts(callBlock: { (success) in
+        self.contentData?.limit = 6
+        self.contentData?.loadCollectionsLookAll(callBlock: { (success) in
             if success{
                 self.tableView.reloadData()
             }else{
@@ -44,18 +47,22 @@ class MorePostsVC: WYBaseTableViewVC {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        if self.contentData?.partArray == nil {
+            return 0
+        }
+        return (self.contentData?.partArray.count)!
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "MorePostsCell") as! MorePostsCell
+        cell.initWithModel((self.contentData?.partArray[indexPath.row])!)
         return cell
         
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 110
+        return 160
     }
 
     override func didReceiveMemoryWarning() {

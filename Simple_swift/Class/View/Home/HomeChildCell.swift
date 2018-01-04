@@ -19,6 +19,9 @@ class HomeChildCell: UITableViewCell {
         self.picImageV.layer.cornerRadius = 3
         self.picImageV.layer.masksToBounds = true
         // Initialization code
+        
+        self.selectionStyle = .none
+
     }
     
     func initWithData(_ homeModel:HomeModel){

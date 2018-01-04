@@ -15,6 +15,9 @@ class ContentData: NSObject {
     var dataArray: [CategoryModel] = []
     var partArray: [PostsModel] = []
     var limit:Int = 0
+    var styleId:Int = 0
+    var requestUrl:String = ""
+    
     
     //专题
     func loadCollectionsPosts(callBlock: @escaping (Bool) -> Void){
@@ -26,30 +29,19 @@ class ContentData: NSObject {
                       "limit": 20,
                       "offset": 0]
         
-        BQHttpTool.request(method: .get, url: Collections_Url, parameters: params as NSDictionary) { ( result : AnyObject, error: Error?) in
+        BQHttpTool.request(method: .get, url: requestUrl, parameters: params as NSDictionary) { ( result : AnyObject, error: Error?) in
             if error == nil{
-                print(result)
                 if result["code"] as! Int == 200{
                     
                     let partArr = (result["data"] as! [String: Any])["posts"] as! [AnyObject]
                     
                     weakSelf?.partArray = partArr.map({ (item: AnyObject) -> PostsModel in
                         
-//                        let collectioModel: CollectionModel = CollectionModel()
-//                        collectioModel.banner_image_url = item["channels"] as! String
-//
-//                        let channels: [AnyObject] = item["channels"] as! [AnyObject]
-//
-//                        collectioModel.posts = channels.map({ (item: AnyObject) -> PostsModel in
-                        
                             let postsModel: PostsModel = PostsModel()
                             postsModel.title = item["title"] as! String
                             postsModel.cover_image_url = item["cover_image_url"] as! String
                             postsModel.content_url = item["content_url"] as! String
                             return postsModel
-                            
-//                        })
-//                        return collectioModel
                         
                     })
                     callBlock(true)
@@ -68,11 +60,10 @@ class ContentData: NSObject {
         weak var weakSelf = self
         BQHttpTool.request(method: .get, url: Category_Url, parameters: nil) { ( result : AnyObject, error: Error?) in
             if error == nil{
-                print(result)
+
                 if result["code"] as! Int == 200{
                     
                     let dataArray = (result["data"] as! [String: Any])["channel_groups"] as! [AnyObject]
-                    //                    weakSelf?.titleArray = TopModel.mj_setKeyValues(dataArray) as [TopModel]
                     
                     weakSelf?.dataArray = dataArray.map({ (item: AnyObject) -> CategoryModel in
 
@@ -111,29 +102,57 @@ class ContentData: NSObject {
         let params = ["limit": limit,
                       "offset": 0]
 
-        BQHttpTool.request(method: .get, url: Collections_Url, parameters: params as NSDictionary) { ( result : AnyObject, error: Error?) in
+        BQHttpTool.request(method: .get, url: CollectionsLookAll_Url, parameters: params as NSDictionary) { ( result : AnyObject, error: Error?) in
             if error == nil{
-                print(result)
+
                 if result["code"] as! Int == 200{
                     
-                    let partArr = (result["data"] as! [String: Any])["posts"] as! [AnyObject]
+                    let partArr = (result["data"] as! [String: Any])["collections"] as! [AnyObject]
                     
                     weakSelf?.partArray = partArr.map({ (item: AnyObject) -> PostsModel in
                         
-                        //                        let collectioModel: CollectionModel = CollectionModel()
-                        //                        collectioModel.banner_image_url = item["channels"] as! String
-                        //
-                        //                        let channels: [AnyObject] = item["channels"] as! [AnyObject]
-                        //                        collectioModel.posts = channels.map({ (item: AnyObject) -> PostsModel in
+                        let postsModel: PostsModel = PostsModel()
+                        postsModel.title = item["title"] as! String
+                        postsModel.cover_image_url = item["cover_image_url"] as! String
+                        postsModel.banner_image_url = item["banner_image_url"] as! String
+                        postsModel.subtitle = item["subtitle"] as! String
+                        
+                        return postsModel
+
+                    })
+                    callBlock(true)
+                    
+                }
+            }else{
+                callBlock(false)
+            }
+        }
+    }
+
+    //风格品类  列表
+    func loadStylesOrCategory(callBlock: @escaping (Bool) -> Void){
+        
+        weak var weakSelf = self
+        
+        let params = ["limit": 20,
+                      "offset": 0]
+
+        BQHttpTool.request(method: .get, url: requestUrl, parameters: params as NSDictionary) { ( result : AnyObject, error: Error?) in
+            if error == nil{
+                
+                if result["code"] as! Int == 200{
+                    
+                    let partArr = (result["data"] as! [String: Any])["collections"] as! [AnyObject]
+                    
+                    weakSelf?.partArray = partArr.map({ (item: AnyObject) -> PostsModel in
                         
                         let postsModel: PostsModel = PostsModel()
                         postsModel.title = item["title"] as! String
                         postsModel.cover_image_url = item["cover_image_url"] as! String
                         postsModel.content_url = item["content_url"] as! String
-                        return postsModel
+                        postsModel.short_title = item["short_title"] as! String
                         
-                        //                        })
-                        //                        return collectioModel
+                        return postsModel
                         
                     })
                     callBlock(true)

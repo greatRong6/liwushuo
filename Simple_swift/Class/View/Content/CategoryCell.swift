@@ -16,6 +16,9 @@ class CategoryCell: UITableViewCell {
     var shopBtn = UIButton()
     var nameLabel = UILabel()
     
+    typealias styleBlock = (_ index:Int) ->Void
+    var moreButtonBlock:styleBlock?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -55,12 +58,14 @@ class CategoryCell: UITableViewCell {
                 let row:CGFloat = CGFloat(index/4)
                 let col:CGFloat = CGFloat(index%4)
                 
-                self.shopBtn = UIButton.init(type: .custom)
+                self.shopBtn = UIButton.init(type: .system)
+                self.shopBtn.tag = 1000 + index
                 self.shopBtn.frame = CGRect(x: DEF_SCREEN_WIDTH/4 * col,y: 90*row + 40,width: DEF_SCREEN_WIDTH/4,height: 80)
-                self.shopBtn.addTarget(self, action: #selector(shopDetailClick), for: .touchUpInside)
+                self.shopBtn.addTarget(self, action: #selector(shopDetailClick(_:)), for: .touchUpInside)
                 self.backView.addSubview(self.shopBtn)
                 
                 self.picImageV = UIImageView.init(frame: CGRect(x: self.shopBtn.frame.size.width/2 - 25,y: 0,width: 50,height: 50))
+                self.picImageV.isUserInteractionEnabled = false
                 self.picImageV.sd_setImage(with: URL(string: channelModel.icon_url as String), placeholderImage: UIImage(named: "nopic.jpg"))
                 self.shopBtn.addSubview(self.picImageV)
                 
@@ -68,13 +73,18 @@ class CategoryCell: UITableViewCell {
                 self.nameLabel.text = channelModel.name
                 self.nameLabel.textAlignment = .center
                 self.shopBtn.addSubview(self.nameLabel)
-                
+
+                self.selectionStyle = .none
             }
         }
     }
     
-    @objc func shopDetailClick(){
+    @objc func shopDetailClick(_ button:UIButton){
         
+        print("djsdjksjdks")
+        if (moreButtonBlock != nil) {
+            moreButtonBlock!(button.tag - 1000)
+        }
     }
     
    func heightRowItem(model:CategoryModel) -> CGFloat{

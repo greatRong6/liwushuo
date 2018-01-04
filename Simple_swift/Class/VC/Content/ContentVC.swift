@@ -77,6 +77,13 @@ class ContentVC: WYBaseTableViewVC {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:CategoryCell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell") as! CategoryCell
         cell.initWithData((self.contentData?.dataArray[indexPath.row])!)
+        cell.moreButtonBlock = {index in
+            
+            UIAlertController.showAlert("提示", "\(index)", self)
+//            let categoryVC = CategoryVC()
+//            categoryVC.styleId = index
+//            self.navigationController?.pushViewController(categoryVC, animated: true)
+        }
         return cell
     }
     
