@@ -61,7 +61,7 @@ class CategoryCell: UITableViewCell {
                 self.shopBtn = UIButton.init(type: .system)
                 self.shopBtn.tag = 1000 + index
                 self.shopBtn.frame = CGRect(x: DEF_SCREEN_WIDTH/4 * col,y: 90*row + 40,width: DEF_SCREEN_WIDTH/4,height: 80)
-                self.shopBtn.addTarget(self, action: #selector(shopDetailClick(_:)), for: .touchUpInside)
+                self.shopBtn.addTarget(self, action: #selector(shopDetailClick(btn :)), for: .touchUpInside)
                 self.backView.addSubview(self.shopBtn)
                 
                 self.picImageV = UIImageView.init(frame: CGRect(x: self.shopBtn.frame.size.width/2 - 25,y: 0,width: 50,height: 50))
@@ -71,6 +71,7 @@ class CategoryCell: UITableViewCell {
                 
                 self.nameLabel = UILabel.init(frame: CGRect(x: 0,y: 55,width: self.shopBtn.frame.size.width,height: 20))
                 self.nameLabel.text = channelModel.name
+                self.picImageV.isUserInteractionEnabled = false
                 self.nameLabel.textAlignment = .center
                 self.shopBtn.addSubview(self.nameLabel)
 
@@ -79,12 +80,13 @@ class CategoryCell: UITableViewCell {
         }
     }
     
-    @objc func shopDetailClick(_ button:UIButton){
+    @objc func shopDetailClick(btn:UIButton){
         
         print("djsdjksjdks")
         if (moreButtonBlock != nil) {
-            moreButtonBlock!(button.tag - 1000)
+            moreButtonBlock!(btn.tag - 1000)
         }
+        
     }
     
    func heightRowItem(model:CategoryModel) -> CGFloat{
