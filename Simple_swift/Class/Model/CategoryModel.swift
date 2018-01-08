@@ -47,4 +47,6 @@ class PostsModel: NSObject {
     var subtitle:String = ""
     var banner_image_url:String = ""
     var short_title:String = ""
+    var group_id:Int = 0
+    
 }

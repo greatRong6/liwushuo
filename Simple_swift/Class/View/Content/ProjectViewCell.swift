@@ -1,5 +1,5 @@
 //
-//  ProjectView.swift
+//  ProjectViewCell.swift
 //  Simple_swift
 //
 //  Created by iosdev on 2018/1/3.
@@ -8,21 +8,25 @@
 
 import UIKit
 
-class ProjectView: UIView , UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
+class ProjectViewCell: UICollectionViewCell , UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     
     var contentData:ContentData?
-    typealias moreBlock = () ->Void
+    typealias moreBlock = (Int) ->Void
     var moreButtonBlock:moreBlock?
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.backgroundColor = UIColor.white
+        self.backgroundColor = UIColor.clear
         
         let titleLabel:UILabel = UILabel.init(frame: CGRect(x: 10,y: 10,width: 100,height: 20))
         titleLabel.text = "专题合集"
-        titleLabel.font = UIFont.systemFont(ofSize: 14.0)
-        titleLabel.textColor = RGB(r: 200, g: 200, b: 200)
+        titleLabel.font = UIFont.systemFont(ofSize: 15.0)
         self.addSubview(titleLabel)
         
         let moreBtn = UIButton.init(type: .custom)
@@ -44,7 +48,7 @@ class ProjectView: UIView , UICollectionViewDelegate,UICollectionViewDataSource,
     
     @objc func moreClick(){
         if moreButtonBlock != nil{
-            moreButtonBlock!()
+            moreButtonBlock!(6)
         }
     }
     
@@ -68,7 +72,7 @@ class ProjectView: UIView , UICollectionViewDelegate,UICollectionViewDataSource,
         let layout = UICollectionViewFlowLayout.init()
         layout.scrollDirection = .horizontal
         var collectionView = UICollectionView.init(frame: CGRect(x: 0,y: 40,width: DEF_SCREEN_WIDTH,height: 80), collectionViewLayout: layout)
-        collectionView.backgroundColor = UIColor.white
+        collectionView.backgroundColor = UIColor.clear
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.showsHorizontalScrollIndicator = false
@@ -99,6 +103,15 @@ class ProjectView: UIView , UICollectionViewDelegate,UICollectionViewDataSource,
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsetsMake(10, 10, 10, 10)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let model:PostsModel = (self.contentData?.partArray[indexPath.row])!
+        
+        if moreButtonBlock != nil{
+            moreButtonBlock!(model.group_id)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

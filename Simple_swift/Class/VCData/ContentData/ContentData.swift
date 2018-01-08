@@ -41,6 +41,7 @@ class ContentData: NSObject {
                             postsModel.title = item["title"] as! String
                             postsModel.cover_image_url = item["cover_image_url"] as! String
                             postsModel.content_url = item["content_url"] as! String
+                            postsModel.group_id = item["id"] as! Int
                             return postsModel
                         
                     })

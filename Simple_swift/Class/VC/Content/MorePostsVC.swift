@@ -11,6 +11,7 @@ import UIKit
 class MorePostsVC: WYBaseTableViewVC {
     
     var contentData:ContentData?
+    var limit:Int?
 
     override func loadView() {
         super.loadView()
@@ -36,7 +37,7 @@ class MorePostsVC: WYBaseTableViewVC {
     
     func loadData() {
 
-        self.contentData?.limit = 6
+        self.contentData?.limit = 20
         self.contentData?.loadCollectionsLookAll(callBlock: { (success) in
             if success{
                 self.tableView.reloadData()
@@ -44,6 +45,7 @@ class MorePostsVC: WYBaseTableViewVC {
                 
             }
         })
+        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
