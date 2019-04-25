@@ -7,11 +7,17 @@
 //
 
 
+#ifndef Objc_Briding_Header_h
+#define Objc_Briding_Header_h
+
 #import "ProgressHUD.h"
-#import <MJExtension/MJExtension.h>
 #import "UIImageView+WebCache.h"
 #import "UIButton+WebCache.h"
 #import "MJRefresh.h"
+#import "MJExtension.h"
+
+
 
 //#import "SwipeTableView"
 
+#endif /* Objc_Briding_Header_h */

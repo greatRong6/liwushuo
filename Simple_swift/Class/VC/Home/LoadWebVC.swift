@@ -34,7 +34,7 @@ class LoadWebVC: BaseVC,UIWebViewDelegate {
         
     }
     
-    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+    private func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool {
         
         self.title = self.webView?.stringByEvaluatingJavaScript(from: "document.title")
     

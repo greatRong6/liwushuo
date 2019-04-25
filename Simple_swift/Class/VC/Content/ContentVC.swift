@@ -20,15 +20,15 @@ class ContentVC: WYBaseCollectionVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.navigationItem.leftBarButtonItem = nil
-        
+                
         let searchBtn = UIButton.init(type: .custom)
         searchBtn.frame = CGRect(x: 0,y: 0,width: 20,height: 20)
         searchBtn.setImage(UIImage.init(named: "Feed_SearchBtn"), for: .normal)
         searchBtn.addTarget(self, action: #selector(searchClick), for: .touchUpInside)
         let rightBtnItem = UIBarButtonItem.init(customView: searchBtn)
         self.navigationItem.rightBarButtonItem = rightBtnItem
+        
+        self.collectionView.backgroundColor = UIColor.white
         
         self.contentData = ContentData.init()
         
@@ -83,12 +83,9 @@ class ContentVC: WYBaseCollectionVC {
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProjectViewCell", for: indexPath) as! ProjectViewCell
             cell.moreButtonBlock = {(index) in
-                
                 let morePort = MorePostsVC()
-//                morePort.index = index
                 morePort.hidesBottomBarWhenPushed = true
                 self.navigationController?.pushViewController(morePort, animated: true)
-                
             }
             return cell
             
@@ -118,7 +115,7 @@ class ContentVC: WYBaseCollectionVC {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         if section != 0 {
-            return CGSize(width: DEF_SCREEN_WIDTH,height: 40)
+            return CGSize(width: DEF_SCREEN_WIDTH,height: 50)
         }
         return CGSize(width: 0,height: 0)
     }
@@ -127,6 +124,8 @@ class ContentVC: WYBaseCollectionVC {
 
         let styleVC = MoreStyleVC.init()
         styleVC.title = self.contentData?.dataArray[indexPath.section-1].channels[indexPath.row].name
+        styleVC.styleId = (self.contentData?.dataArray[indexPath.section-1].channels[indexPath.row].group_id)!
+        styleVC.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(styleVC, animated: true)
         
     }

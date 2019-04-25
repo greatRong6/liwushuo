@@ -14,13 +14,12 @@ class MorePostsCell: UITableViewCell {
     var titleLabel:UILabel = UILabel()
     var shortLabel:UILabel = UILabel()
 
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         imageV = UIImageView.init(frame: CGRect(x: 10,y: 5,width: DEF_SCREEN_WIDTH - 20,height: 150))

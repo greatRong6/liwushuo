@@ -11,6 +11,7 @@ import UIKit
 class ProjectViewCell: UICollectionViewCell , UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     
     var contentData:ContentData?
+    
     typealias moreBlock = (Int) ->Void
     var moreButtonBlock:moreBlock?
     
@@ -22,10 +23,10 @@ class ProjectViewCell: UICollectionViewCell , UICollectionViewDelegate,UICollect
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.backgroundColor = UIColor.clear
+        self.backgroundColor = UIColor.white
         
         let titleLabel:UILabel = UILabel.init(frame: CGRect(x: 10,y: 10,width: 100,height: 20))
-        titleLabel.text = "专题合集"
+        titleLabel.text = "专题"
         titleLabel.font = UIFont.systemFont(ofSize: 15.0)
         self.addSubview(titleLabel)
         
@@ -102,7 +103,7 @@ class ProjectViewCell: UICollectionViewCell , UICollectionViewDelegate,UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsetsMake(10, 10, 10, 10)
+        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

@@ -16,7 +16,6 @@ class ProjectCell: UICollectionViewCell {
         super.init(frame: frame)
         
         self.imageV =  UIImageView.init(frame: CGRect(x: 0,y: 0,width: 130,height: 80))
-        self.imageV.backgroundColor = UIColor.red
         self.contentView.addSubview(self.imageV)
         
     }

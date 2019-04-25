@@ -10,19 +10,17 @@ import UIKit
 
 class WYBaseTableViewVC: BaseVC,UITableViewDelegate,UITableViewDataSource {
     
-    var tableViewStyle:UITableViewStyle?
+    var tableViewStyle:UITableView.Style?
     
-    var pageNo:Int = 1
+    var pageNo:Int = 0
     var pageSize:Int = 10
     var pullDownRefreshed:Bool = true
     var loadMoreRefreshed:Bool = true
 
     lazy var tableView:UITableView = {
         var tableFrame:CGRect = self.view.bounds
-        tableFrame.origin.y = 0
-//            CGFloat(KNavigaHeight)
-        tableFrame.size.height -= (self.navigationController!.viewControllers.count > 1 ? 0 : self.tabBarController!.tabBar.bounds.height) + 0
-        
+        tableFrame.size.height = tableFrame.size.height - KTabarHeight - KTabarHeight
+//        tableFrame.size.height -= (self.navigationController!.viewControllers.count > 1 ? 0 : KTabarHeight) + CGFloat(KNavigaHeight)
         var tableView = UITableView.init(frame: tableFrame, style: .plain)
         tableView.backgroundColor = RGB(r: 230, g: 230, b: 230)
         tableView.delegate = self

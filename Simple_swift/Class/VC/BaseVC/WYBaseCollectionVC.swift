@@ -19,10 +19,10 @@ class WYBaseCollectionVC: BaseVC,UICollectionViewDelegate,UICollectionViewDataSo
        
         var tableFrame:CGRect = self.view.bounds
         tableFrame.origin.y = 0
-//            CGFloat(KNavigaHeight)
-        tableFrame.size.height -= (self.navigationController!.viewControllers.count > 1 ? 0 : self.tabBarController!.tabBar.bounds.height)
+        tableFrame.size.height = tableFrame.size.height - KTabarHeight - KNavigaHeight
+//        tableFrame.size.height -= (self.navigationController!.viewControllers.count > 1 ? 0 : KTabarHeight) + CGFloat(KNavigaHeight)
         let layout = UICollectionViewFlowLayout.init()
-        var collecitonView = UICollectionView.init(frame: tableFrame, collectionViewLayout: layout)
+        let collecitonView = UICollectionView.init(frame: tableFrame, collectionViewLayout: layout)
         collecitonView.backgroundColor = RGB(r: 230, g: 230, b: 230)
         collecitonView.delegate = self
         collecitonView.dataSource = self
@@ -35,27 +35,24 @@ class WYBaseCollectionVC: BaseVC,UICollectionViewDelegate,UICollectionViewDataSo
 
         self.view.addSubview(self.collectionView)
         
-        weak var weakSelf = self
         if self.pullDownRefreshed {
-            self.collectionView.mj_header = MJRefreshNormalHeader.init(refreshingBlock: {
-                weakSelf?.reloadData()
-            })
+            self.collectionView.mj_header = MJRefreshNormalHeader()
+            self.collectionView.mj_header.setRefreshingTarget(self, refreshingAction: #selector(reloadData))
         }
         if self.loadMoreRefreshed {
-            self.collectionView.mj_footer = MJRefreshAutoNormalFooter.init(refreshingBlock: {
-                weakSelf?.loadMoreData()
-            })
-        }
+            self.collectionView.mj_footer = MJRefreshAutoNormalFooter()
+            self.collectionView.mj_footer.setRefreshingTarget(self, refreshingAction: #selector(loadMoreData))
+        }        
         
         // Do any additional setup after loading the view.
     }
     
-    func reloadData(){
+    @objc func reloadData(){
         self.pageNo = 0
         self.loadMoreData()
     }
     
-    func loadMoreData(){
+    @objc func loadMoreData(){
         
     }
 

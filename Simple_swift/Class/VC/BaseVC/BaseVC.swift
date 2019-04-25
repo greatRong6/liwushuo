@@ -9,11 +9,20 @@
 import UIKit
 
 class BaseVC: UIViewController {
+    
+    override func viewWillDisappear(_ animated:Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true;
+    }
+    
+    override func viewDidAppear(_ animated:Bool) {
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false;
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = RGB(r: 200, g: 200, b: 200)
+        self.view.backgroundColor = RGB(r: 230, g: 230, b: 230)
         
         let leftBtn = UIButton.init(type: .custom)
         leftBtn.frame = CGRect(x: 0,y: 0, width: 20,height: 20)

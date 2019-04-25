@@ -9,49 +9,69 @@
 import UIKit
 
 class MoreStyleVC: WYBaseTableViewVC {
-
-    var contentData:ContentData?
     
-    override func loadView() {
-        super.loadView()
-        self.pullDownRefreshed = false
-        self.loadMoreRefreshed = false
-    }
-
+    var contentData:ContentData?
+    var styleId:Int = 0
+    var dataSource: [PostsModel] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.contentData = ContentData.init()
-
+        
         LoadNibCellClass(view: self.tableView, name: "HomeChildCell")
         
-        self.loadData()
+        self.tableView.mj_header.state = .refreshing
+        self.tableView.separatorStyle = .none
         
         // Do any additional setup after loading the view.
     }
     
-    func loadData(){
+    override func loadMoreData(){
         
         weak var weakSelf = self
         
+        self.contentData?.pageNum = self.pageNo
+        self.contentData?.pageSize = self.pageSize
+        self.contentData?.requestUrl = BASE_URL + "v1/channels/\(styleId)/items"
+        
         self.contentData?.loadStylesOrCategory(callBlock: { (success) in
             if success{
-                weakSelf?.tableView.reloadData()
-            }else{
+                if weakSelf?.pageNo == 0{
+                    weakSelf?.tableView.mj_header.endRefreshing()
+                    weakSelf?.dataSource.removeAll()
+                }else{
+                    weakSelf?.tableView.mj_footer.endRefreshing()
+                }
                 
+                weakSelf?.dataSource = (weakSelf?.dataSource)! + (weakSelf?.contentData?.partArray)!
+                
+                if (weakSelf?.contentData?.partArray.count)! < (weakSelf?.pageSize)!{
+                    weakSelf?.tableView.mj_footer.resetNoMoreData()
+                }
+                
+                weakSelf?.pageNo+=1
+                weakSelf?.tableView.reloadData()
+                
+            }else{
+                weakSelf?.tableView.mj_header.endRefreshing()
+                weakSelf?.tableView.mj_footer.endRefreshing()
             }
         })
         
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        if self.contentData == nil {
+            return 0
+        }
+        return (self.dataSource.count)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell:HomeChildCell = tableView.dequeueReusableCell(withIdentifier: "HomeChildCell") as! HomeChildCell
-//        cell.initWithData((self.dataSource[indexPath.row]))
+        cell.initWithModel((self.dataSource[indexPath.row]))
         return cell
         
     }
@@ -59,22 +79,22 @@ class MoreStyleVC: WYBaseTableViewVC {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
     }
-
-
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

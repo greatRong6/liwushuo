@@ -11,7 +11,7 @@
 import UIKit
 import ScrollPageView
 
-class HomeVC: WYBaseTableViewVC {
+class HomeVC: GZRViewController {
 
     var homeData:HomeData?
 
@@ -34,47 +34,59 @@ class HomeVC: WYBaseTableViewVC {
         let rightBtnItem = UIBarButtonItem.init(customView: searchBtn)
         self.navigationItem.rightBarButtonItem = rightBtnItem
         
-        self.homeData = HomeData.init()
+//        self.homeData = HomeData.init()
 
-        self.loadData()
+//        self.loadData()
+        
+        let array = ["精选", "海淘", "礼物", "美食", "数码", "运动", "涨姿势"];
+        self.initWithTitleButton(titleArray: array)
+        
+        let oneVC   = HomeChildVC.init()
+        oneVC.view.backgroundColor = UIColor.blue
+        let twoVC   = HomeChildVC.init()
+        twoVC.view.backgroundColor = UIColor.yellow
+        let threeVC = HomeChildVC.init()
+        threeVC.view.backgroundColor = UIColor.green
+
+        let fourVC  = HomeChildVC.init()
+        fourVC.view.backgroundColor = UIColor.gray
+
+        let fiveVC  = HomeChildVC.init()
+        let sixVC   = HomeChildVC.init()
+        let sevenVC = HomeChildVC.init()
+        let arrayVC = [oneVC, twoVC, threeVC, fourVC, fiveVC, sixVC, sevenVC];
+        self.initWithController(controllerArray: arrayVC)
         
         // Do any additional setup after loading the view.
     }
     
-    func loadData(){
-        
-        weak var weakSelf = self
-        
-        self.homeData?.loadHomeTopData(callBlock: { (success) in
-            if success{
-                
-                var style = SegmentStyle()
-                style.showCover = true
-                style.gradualChangeTitleColor = false
-                style.coverBackgroundColor = UIColor.white
+//    func loadData(){
+//
+//        weak var weakSelf = self
+//
+//        self.homeData?.loadHomeTopData(callBlock: { (success) in
+//            if success{
+//
+//            }else{
+//
+//            }
+//        })
+//    }
 
-                var titleArr = [String]()
-                for model in (self.homeData?.titleArray)!{
-                    titleArr.append(model.name)
-                }
-                
-                let scroll = ScrollPageView(frame: CGRect(x: 0, y: 0, width: DEF_SCREEN_WIDTH, height: DEF_SCREEN_HEIGHT - CGFloat(KNavigaHeight) - CGFloat(KTabarHeight)), segmentStyle: style, titles: titleArr , childVcs: (weakSelf?.setChildVcs())!, parentViewController: weakSelf!)
-                scroll.segmentStyle.showLine = true
-                scroll.segmentStyle.scrollLineColor = UIColor.blue
-                weakSelf?.view.addSubview(scroll)
-
-            }else{
-                
-            }
-        })
-    }
-    
     @objc func scanClick(){
         
-        let scan = ScanVC.init()
-        scan.title = "扫一扫"
-        scan.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(scan, animated: true)
+//        let scan = ScanVC.init()
+//        scan.title = "扫一扫"
+//        scan.hidesBottomBarWhenPushed = true
+//        self.navigationController?.pushViewController(scan, animated: true)
+        
+        Utils.jm_cameraAuthStatus(success: {
+            let scanVC = ScanVC.init()
+            scanVC.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(scanVC, animated: true)
+        }) {
+            
+        }
         
     }
     
@@ -93,13 +105,23 @@ class HomeVC: WYBaseTableViewVC {
         
         for model in (self.homeData?.titleArray)!{
             
-            let childVC = HomeChildVC()
+            let childVC = HomeOneVC()
             childVC.title = model.name
             childVC.typeId = String(model.typeId)
             vcArray.append(childVC)
         }
         
         return vcArray as! [UIViewController]
+    }
+    
+    @objc func addFresh(notification: Notification){
+//        self.loadData();
+//        self.pageNo = 0
+//        self.pageSize = 10
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 
 

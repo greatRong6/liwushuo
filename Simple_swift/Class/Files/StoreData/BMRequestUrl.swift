@@ -9,7 +9,7 @@
 import UIKit
 
 /// 服务器地址
-let BASE_URL = "http://api.dantangapp.com/"
+let BASE_URL = "http://api.liwushuo.com/"
 
 //单品
 let Simple_Url =  BASE_URL + "v2/items"
@@ -32,3 +32,5 @@ var CollectionsLookAll_Url = BASE_URL + "v1/collections"
 //风格  查看
 var StyleCategory_Url = BASE_URL + "v1/channels/"
 
+//礼物 分类
+var Categories_Url = BASE_URL + "v2/item_categories/tree?"

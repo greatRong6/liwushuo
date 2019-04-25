@@ -14,10 +14,11 @@ class ContentData: NSObject {
     
     var dataArray: [CategoryModel] = []
     var partArray: [PostsModel] = []
-    var limit:Int = 0
+
     var styleId:Int = 0
     var requestUrl:String = ""
-    
+    var pageNum:Int = 0
+    var pageSize:Int = 10
     
     //专题
     func loadCollectionsPosts(callBlock: @escaping (Bool) -> Void){
@@ -95,12 +96,14 @@ class ContentData: NSObject {
             }
         }
     }
+    
+    
     //专题   查看全部
-    func loadCollectionsLookAll(callBlock: @escaping (Bool) -> Void){
+    func loadCollectionsLookAll(callBlock: @escaping (Bool,String) -> Void){
         
         weak var weakSelf = self
         
-        let params = ["limit": limit,
+        let params = ["limit": self.pageNum,
                       "offset": 0]
 
         BQHttpTool.request(method: .get, url: CollectionsLookAll_Url, parameters: params as NSDictionary) { ( result : AnyObject, error: Error?) in
@@ -121,11 +124,11 @@ class ContentData: NSObject {
                         return postsModel
 
                     })
-                    callBlock(true)
+                    callBlock(true,"1")
                     
                 }
             }else{
-                callBlock(false)
+                callBlock(false,"2")
             }
         }
     }
@@ -135,15 +138,15 @@ class ContentData: NSObject {
         
         weak var weakSelf = self
         
-        let params = ["limit": 20,
-                      "offset": 0]
+        let params = ["limit": self.pageSize,
+                      "offset": self.pageNum]
 
         BQHttpTool.request(method: .get, url: requestUrl, parameters: params as NSDictionary) { ( result : AnyObject, error: Error?) in
             if error == nil{
                 
                 if result["code"] as! Int == 200{
                     
-                    let partArr = (result["data"] as! [String: Any])["collections"] as! [AnyObject]
+                    let partArr = (result["data"] as! [String: Any])["items"] as! [AnyObject]
                     
                     weakSelf?.partArray = partArr.map({ (item: AnyObject) -> PostsModel in
                         
@@ -152,17 +155,18 @@ class ContentData: NSObject {
                         postsModel.cover_image_url = item["cover_image_url"] as! String
                         postsModel.content_url = item["content_url"] as! String
                         postsModel.short_title = item["short_title"] as! String
-                        
+                        postsModel.group_id = item["id"] as! Int
+
                         return postsModel
                         
                     })
                     callBlock(true)
                     
                 }
+                
             }else{
                 callBlock(false)
             }
         }
     }
-
 }

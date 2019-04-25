@@ -23,14 +23,14 @@ class WYBaseTabBarVC: UITabBarController {
     func creatSubviews(){
         
         let homeVC = HomeVC.init()
-        homeVC.title = "单糖"
-        homeVC.tabBarItem = UITabBarItem.init(title: "单糖", image: UIImage.init(named: "TabBar_home"), selectedImage: UIImage.init(named: "TabBar_home_selected"))
+        homeVC.title = "礼物说"
+        homeVC.tabBarItem = UITabBarItem.init(title: "礼物说", image: UIImage.init(named: "TabBar_home"), selectedImage: UIImage.init(named: "TabBar_home_selected"))
         
         let singleVC = SingleVC.init()
-        singleVC.title = "单品"
-        singleVC.tabBarItem = UITabBarItem.init(title: "单品", image: UIImage.init(named: "TabBar_gift"), selectedImage: UIImage.init(named: "TabBar_gift_selected"))
+        singleVC.title = "热门"
+        singleVC.tabBarItem = UITabBarItem.init(title: "热门", image: UIImage.init(named: "TabBar_gift"), selectedImage: UIImage.init(named: "TabBar_gift_selected"))
         
-        let contentVC = ContentVC.init()
+        let contentVC = ClassifyVC.init()
         contentVC.title = "分类"
         contentVC.tabBarItem = UITabBarItem.init(title: "分类", image: UIImage.init(named: "TabBar_category"), selectedImage: UIImage.init(named: "TabBar_category_selected"))
         
@@ -45,6 +45,23 @@ class WYBaseTabBarVC: UITabBarController {
         
         self.viewControllers = [nav1,nav2,nav3,nav4]
         
+    }
+    
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+                
+        switch item.tag {
+        case 0:
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "firstResh"), object: self)
+            break
+        default: break
+            
+        }
+        
+    }
+        
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
     }
 
     override func didReceiveMemoryWarning() {

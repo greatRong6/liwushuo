@@ -13,6 +13,7 @@ class HomeData: NSObject {
     static let shareNetwork = HomeData()
     var dataArray: [HomeModel] = []
     var titleArray: [TopModel] = []
+    var cateModel:StrategyModel = StrategyModel()
     
     var pageNum:Int = 0
     var pageSize:Int = 10
@@ -81,4 +82,25 @@ class HomeData: NSObject {
             }
         }
     }
+    
+    func loadCategoriesData(callBlock: @escaping (Bool) -> Void){
+        
+        let params = [
+            :
+            ] as [String : Any]
+        
+        BQHttpTool.request(method: .get, url: Categories_Url, parameters: params as NSDictionary) { ( result : AnyObject, error: Error?) in
+            if error == nil{
+                
+                self.cateModel = StrategyModel.mj_object(withKeyValues: result)
+                if(self.cateModel.code == "200"){
+                    
+                }
+                
+            }else{
+                callBlock(false)
+            }
+        }
+    }
+
 }

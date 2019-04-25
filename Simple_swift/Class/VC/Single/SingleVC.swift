@@ -32,8 +32,8 @@ class SingleVC: WYBaseCollectionVC {
         
         self.simpleData = SimpleData.init()
         
-        self.collectionView.mj_header.state = .refreshing
-        
+        self.collectionView.mj_header.beginRefreshing()        
+
         // Do any additional setup after loading the view.
     }
     
@@ -96,7 +96,7 @@ class SingleVC: WYBaseCollectionVC {
     
     //item 的尺寸
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (DEF_SCREEN_WIDTH-10)/2, height: 210);
+        return CGSize(width: (DEF_SCREEN_WIDTH-10)/2, height: 235);
     }
 
 

@@ -11,5 +11,8 @@ pod 'IQKeyboardManagerSwift'
 pod 'MJExtension'
 pod 'MJRefresh'
 pod 'ScrollPageView'
+pod 'ImageViewer'
+
+
 
 end  

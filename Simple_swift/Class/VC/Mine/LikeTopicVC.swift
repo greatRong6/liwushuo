@@ -12,6 +12,8 @@ class LikeTopicVC: WYBaseTableViewVC {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+    self.title = "我的"
 
         // Do any additional setup after loading the view.
     }
@@ -21,7 +23,6 @@ class LikeTopicVC: WYBaseTableViewVC {
         // Dispose of any resources that can be recreated.
     }
     
-
     /*
     // MARK: - Navigation
 

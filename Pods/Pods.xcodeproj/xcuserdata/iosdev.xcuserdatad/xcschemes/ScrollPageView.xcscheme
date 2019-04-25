@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '3A2613B20C9F6BE4FD53309F22A5D6D5'
-               BlueprintName = 'ScrollPageView'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'ScrollPageView.framework'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "0950BC1552C6F02689BE9919EA310EEA"
+               BlueprintName = "ScrollPageView"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "ScrollPageView.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

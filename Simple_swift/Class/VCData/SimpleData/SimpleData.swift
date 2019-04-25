@@ -15,7 +15,9 @@ class SimpleData: NSObject {
     var dataArray: [SimpleModel] = []
     var pageNum:Int = 0
     var pageSize:Int = 10
-
+    
+//    http://api.liwushuo.com/v2/items?gender=1&generation=1&limit=10&offset=0
+    
     func loadProductData(callBlock: @escaping (Bool) -> Void){
         let params = [
             "gender": 1,

@@ -1,5 +1,5 @@
 //
-//  HomeChildVC.swift
+//  HomeOneVC.swift
 //  Simple_swift
 //
 //  Created by iosdev on 2017/12/25.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeChildVC: WYBaseTableViewVC {
+class HomeOneVC: WYBaseTableViewVC {
 
     var typeId: String = ""
     var homeData:HomeData?
@@ -28,8 +28,8 @@ class HomeChildVC: WYBaseTableViewVC {
         LoadNibCellClass(view: self.tableView, name: "HomeChildCell")
                 
         self.tableView.frame = CGRect(x: 0,y: 0,width: DEF_SCREEN_WIDTH,height: DEF_SCREEN_HEIGHT - 44 - CGFloat(KTabarHeight) - CGFloat(KNavigaHeight))
-        DefauleColor()
-        self.tableView.mj_header.state = .refreshing
+
+        self.tableView.mj_header.beginRefreshing()
         self.tableView.separatorStyle = .none
         
         // Do any additional setup after loading the view.

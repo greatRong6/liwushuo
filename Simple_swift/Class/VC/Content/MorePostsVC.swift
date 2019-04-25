@@ -37,8 +37,8 @@ class MorePostsVC: WYBaseTableViewVC {
     
     func loadData() {
 
-        self.contentData?.limit = 20
-        self.contentData?.loadCollectionsLookAll(callBlock: { (success) in
+        self.contentData?.pageNum = 20
+        self.contentData?.loadCollectionsLookAll(callBlock: { (success,type) in
             if success{
                 self.tableView.reloadData()
             }else{

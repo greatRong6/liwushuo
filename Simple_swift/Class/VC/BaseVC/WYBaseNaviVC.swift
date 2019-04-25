@@ -17,8 +17,8 @@ class WYBaseNaviVC: UINavigationController {
         self.navigationBar.barTintColor = DefauleColor()
         self.navigationBar.setNavigationBarWithColor(UIColor.clear)
         
-        self.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white,NSAttributedStringKey.font:UIFont.systemFont(ofSize: 18.0)]
-                
+        self.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white,NSAttributedString.Key.font:UIFont.systemFont(ofSize: 18.0)]
+        
         // Do any additional setup after loading the view.
     }
 
