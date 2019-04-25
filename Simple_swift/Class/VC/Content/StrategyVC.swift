@@ -26,6 +26,7 @@ class StrategyVC: WYBaseTableViewVC {
         self.homeData = HomeData.init()
 
 //        self.tableView.frame.size.width = DEF_SCREEN_WIDTH/4
+        LoadCellClass(view: self.tableView, className: StrategyCell.self, name: "StrategyCell")
         
         self.loadData()
         
@@ -53,15 +54,9 @@ class StrategyVC: WYBaseTableViewVC {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cellid = "testCellID"
-        var cell = tableView.dequeueReusableCell(withIdentifier: cellid)
-        if cell == nil {
-            cell = UITableViewCell.init(style: .value1, reuseIdentifier: cellid)
-        }
-//        let cateModel = self.homeData?.cateModel.data[indexPath.row]
-        cell?.textLabel?.text = "121232"
-        cell?.textLabel?.textColor = UIColor.red
-        return cell!
+        let cell:StrategyCell = tableView.dequeueReusableCell(withIdentifier: "StrategyCell", for: indexPath) as! StrategyCell
+        cell.name?.text = "121232"
+        return cell
         
     }
     
