@@ -1,5 +1,5 @@
 //
-//  HomeChildVC.swift
+//  StrategyVC.swift
 //  Simple_swift
 //
 //  Created by iosdev on 2019/4/24.
@@ -8,6 +8,6 @@
 
 import UIKit
 
-class HomeChildVC: BaseVC {
+class StrategyVC: WYBaseTableViewVC {
 
 }
