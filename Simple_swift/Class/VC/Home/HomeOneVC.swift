@@ -66,6 +66,7 @@ class HomeOneVC: WYBaseTableViewVC {
                 weakSelf?.tableView.mj_footer.endRefreshing()
             }
         })
+        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

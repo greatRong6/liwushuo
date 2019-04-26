@@ -14,15 +14,18 @@ class StrategyCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        name = UILabel.init(frame: CGRect(x: 10,y: 10,width: DEF_SCREEN_WIDTH/4,height: 20))
+                
+        name = UILabel.init(frame: CGRect(x: 10,y: 10,width: DEF_SCREEN_WIDTH,height: 20))
         name?.font = UIFont.systemFont(ofSize: 15)
-        name?.backgroundColor = UIColor.red
+        name?.textColor = UIColor.red
         self.contentView.addSubview(name!)
+        
+        self.selectionStyle = .none
         
     }
     
     required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
         fatalError("init(coder:) has not been implemented")
     }
     
