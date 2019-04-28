@@ -25,7 +25,7 @@ class ClassifyVC: BaseVC,UIScrollViewDelegate {
         segment.addTarget(self, action: #selector(segmentedControlChange(segmented:)), for: .valueChanged)
         self.navigationItem.titleView = segment
         
-        let oneVC = ContentVC.init()
+        let oneVC   = ContentVC.init()
         let twoVC   = StrategyVC.init()
         let arrayVC = [oneVC, twoVC];
         self.initWithController(controllerArray: arrayVC)
@@ -47,10 +47,20 @@ class ClassifyVC: BaseVC,UIScrollViewDelegate {
         
         for index in 0..<controllerArray.count{
             let viewController:UIViewController = controllerArray[index] as! UIViewController
+//            if(viewController.isKind(of: WYBaseTableViewVC.classForCoder())){
+//                let viewController:WYBaseTableViewVC = controllerArray[index] as! WYBaseTableViewVC
+//                viewController.view.frame = CGRect(x: DEF_SCREEN_WIDTH * CGFloat(index),y: 0,width: DEF_SCREEN_WIDTH,height: self.scrollView.frame.size.height)
+//                viewController.tableView.frame = CGRect(x: DEF_SCREEN_WIDTH * CGFloat(index),y: 0,width: DEF_SCREEN_WIDTH,height: self.scrollView.frame.size.height)
+//                scrollView.addSubview(viewController.tableView)
+//            };if(viewController.isKind(of: WYBaseCollectionVC.classForCoder())){
+//                let viewController:WYBaseCollectionVC = controllerArray[index] as! WYBaseCollectionVC
+//                viewController.view.frame = CGRect(x: DEF_SCREEN_WIDTH * CGFloat(index),y: 0,width: DEF_SCREEN_WIDTH,height: self.scrollView.frame.size.height)
+//                viewController.collectionView.frame = CGRect(x: DEF_SCREEN_WIDTH * CGFloat(index),y: 0,width: DEF_SCREEN_WIDTH,height: self.scrollView.frame.size.height)
+//                scrollView.addSubview(viewController.collectionView)
+//            }
             viewController.view.frame = CGRect(x: DEF_SCREEN_WIDTH * CGFloat(index),y: 0,width: DEF_SCREEN_WIDTH,height: self.scrollView.frame.size.height)
             scrollView.addSubview(viewController.view)
         }
-        
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -60,7 +70,6 @@ class ClassifyVC: BaseVC,UIScrollViewDelegate {
         }
 
     }
-
     
     @objc func segmentedControlChange(segmented: UISegmentedControl) {
         if segmented.selectedSegmentIndex == 0 {
@@ -72,6 +81,10 @@ class ClassifyVC: BaseVC,UIScrollViewDelegate {
                 self.scrollView.contentOffset = CGPoint(x: DEF_SCREEN_WIDTH, y: 0)
             }
         }
+    }
+    
+    deinit {
+        
     }
     
 }

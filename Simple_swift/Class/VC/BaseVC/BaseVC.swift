@@ -44,7 +44,7 @@ class BaseVC: UIViewController {
     }
     
     deinit {
-        print("\(self.debugDescription) 销毁")
+        print("\(self.debugDescription) 被销毁了")
     }
     /*
     // MARK: - Navigation
