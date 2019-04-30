@@ -12,6 +12,7 @@ class StrategyView: UIView,UITableViewDelegate,UITableViewDataSource,UICollectio
     
     var tableView:UITableView?
     var collectionView:UICollectionView?
+    var isScrollDowm:Bool = true
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -84,9 +85,21 @@ class StrategyView: UIView,UITableViewDelegate,UITableViewDataSource,UICollectio
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 10, left: 10, bottom: 0, right: 10)
     }
+    
     //分区头部、尾部将要显示出来的事件响应
-    func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
-        self.tableView?.selectRow(at: IndexPath(row: indexPath.section, section: 0), animated: true, scrollPosition: .top)
+//    func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
+//        self.tableView?.selectRow(at: IndexPath(row: indexPath.section, section: 0), animated: true, scrollPosition: .top)
+//    }
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if self.collectionView!.isDragging{
+            self.tableView?.selectRow(at: IndexPath(row: indexPath.section, section: 0), animated: true, scrollPosition: .top)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if self.collectionView!.isDragging{
+            self.tableView?.selectRow(at: IndexPath(row: indexPath.section, section: 0), animated: true, scrollPosition: .top)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -102,6 +115,14 @@ class StrategyView: UIView,UITableViewDelegate,UITableViewDataSource,UICollectio
         return CGSize(width: (self.collectionView?.frame.size.width)!,height: 50)
     }
 
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        scrollView.contentOffset.y
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
