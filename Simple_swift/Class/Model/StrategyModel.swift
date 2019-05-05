@@ -19,10 +19,10 @@ class StrategyModel: NSObject {
 class CategoModel: NSObject {
     
     @objc var icon_url:String = ""
-    @objc var cateId:String = ""
+    @objc var cateId:Int = 0
     @objc var name:String = ""
-    @objc var order:String = ""
-    @objc var status:String = ""
+    @objc var order:Int = 0
+    @objc var status:Int = 0
     @objc var subcategories:[SubCateModel] = []
     //修改关键字
     override static func mj_replacedKeyFromPropertyName() -> [AnyHashable : Any]{

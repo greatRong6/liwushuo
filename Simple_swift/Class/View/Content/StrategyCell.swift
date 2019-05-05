@@ -18,7 +18,6 @@ class StrategyCell: UITableViewCell {
                 
         name = UILabel.init(frame: CGRect(x: 10,y: 20,width: DEF_SCREEN_WIDTH,height: 20))
         name?.font = UIFont.systemFont(ofSize: 15)
-        name?.textColor = UIColor.red
         self.contentView.addSubview(name!)
         
         self.redView = UIView.init(frame: CGRect(x: 0,y: 0,width: 5,height: 60))
@@ -43,6 +42,7 @@ class StrategyCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         self.contentView.backgroundColor = selected ? UIColor.white : RGB(r: 230, g: 230, b: 230)
+        self.name?.textColor = selected ? DefauleColor() : UIColor.black
         self.isHighlighted = selected
         self.name?.isHighlighted = selected
         self.redView?.isHidden = !selected

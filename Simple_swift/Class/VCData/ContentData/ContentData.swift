@@ -14,6 +14,7 @@ class ContentData: NSObject {
     
     var dataArray: [CategoryModel] = []
     var partArray: [PostsModel] = []
+    var straArray: [CategoModel] = []
 
     var styleId:Int = 0
     var requestUrl:String = ""
@@ -169,4 +170,40 @@ class ContentData: NSObject {
             }
         }
     }
+    
+    func loadGifeList(callBlock: @escaping (Bool) -> Void){
+        
+        weak var weakSelf = self
+        
+        let params = Dictionary<String,String>()
+        
+        BQHttpTool.request(method: .get, url: Categories_Url, parameters: params as NSDictionary) { ( result : AnyObject, error: Error?) in
+            if error == nil{
+                
+                if result["code"] as! Int == 200{
+                    
+                    let partArr = (result["data"] as! [String: Any])["categories"] as! [AnyObject]
+                    
+                    weakSelf?.straArray = partArr.map({ (item: AnyObject) -> CategoModel in
+                        
+                        let straModel: CategoModel = CategoModel()
+                        straModel.icon_url = item["icon_url"] as! String
+                        straModel.cateId = item["id"] as! Int
+                        straModel.name = item["name"] as! String
+                        straModel.order = item["order"] as! Int
+                        straModel.status = item["status"] as! Int
+                        
+                        return straModel
+                        
+                    })
+                    callBlock(true)
+                    
+                }
+                
+            }else{
+                callBlock(false)
+            }
+        }
+    }
+    
 }

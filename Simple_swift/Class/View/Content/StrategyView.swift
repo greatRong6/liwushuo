@@ -14,6 +14,7 @@ class StrategyView: UIView,UITableViewDelegate,UITableViewDataSource,UICollectio
     var collectionView:UICollectionView?
     var isScrollDowm:Bool = true
     var lastOffsetY:CGFloat = 0
+    var contentData:ContentData?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -22,6 +23,8 @@ class StrategyView: UIView,UITableViewDelegate,UITableViewDataSource,UICollectio
         self.tableView?.backgroundColor = RGB(r: 230, g: 230, b: 230)
         self.tableView?.delegate = self;
         self.tableView?.dataSource = self;
+        self.tableView?.showsVerticalScrollIndicator = false
+        self.tableView?.showsHorizontalScrollIndicator = false
         self.addSubview(self.tableView!)
         
         self.tableView?.register(StrategyCell.self, forCellReuseIdentifier: "cellId")
@@ -33,17 +36,25 @@ class StrategyView: UIView,UITableViewDelegate,UITableViewDataSource,UICollectio
         self.collectionView?.delegate = self;
         self.collectionView?.dataSource = self;
         self.collectionView?.autoresizingMask = .flexibleHeight
+        self.collectionView?.showsVerticalScrollIndicator = false
+        self.collectionView?.showsHorizontalScrollIndicator = false
         self.addSubview(self.collectionView!)
         
         LoadCollectionCellClass(view: self.collectionView!, className: StrategyCollecCell.self, name: "StrategyCollecCell")
         self.collectionView!.register(StrategyReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "StrategyReusableView")
         
-        self.tableView?.selectRow(at: NSIndexPath(row: 0, section: 0) as IndexPath, animated: true, scrollPosition: .none)
+        self.contentData = ContentData.init()
+        
+        self.loadData()
 
     }
     
     func loadData(){
-        
+        self.contentData?.loadGifeList(callBlock: { (success) in
+            self.tableView?.selectRow(at: NSIndexPath(row: 0, section: 0) as IndexPath, animated: true, scrollPosition: .none)
+            self.tableView?.reloadData()
+            self.collectionView?.reloadData()
+        })
     }
     
     /************tableViewDelegate*******************/
@@ -52,13 +63,16 @@ class StrategyView: UIView,UITableViewDelegate,UITableViewDataSource,UICollectio
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        if self.contentData?.straArray == nil {
+            return 0
+        }
+        return (self.contentData?.straArray.count)!
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell:StrategyCell = tableView.dequeueReusableCell(withIdentifier: "cellId") as! StrategyCell
-        cell.name?.text = "121232"
+        cell.name?.text = self.contentData?.straArray[indexPath.row].name
         return cell
         
     }
@@ -86,7 +100,10 @@ class StrategyView: UIView,UITableViewDelegate,UITableViewDataSource,UICollectio
     
     /************collectionViewDelegate*******************/
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 20
+        if self.contentData?.straArray == nil {
+            return 0
+        }
+        return (self.contentData?.straArray.count)!
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
