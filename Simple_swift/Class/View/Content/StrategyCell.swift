@@ -42,7 +42,7 @@ class StrategyCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        self.contentView.backgroundColor = selected ? UIColor.white : UIColor.init(white: 0, alpha: 0.1)
+        self.contentView.backgroundColor = selected ? UIColor.white : RGB(r: 230, g: 230, b: 230)
         self.isHighlighted = selected
         self.name?.isHighlighted = selected
         self.redView?.isHidden = !selected

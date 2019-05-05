@@ -13,12 +13,13 @@ class StrategyView: UIView,UITableViewDelegate,UITableViewDataSource,UICollectio
     var tableView:UITableView?
     var collectionView:UICollectionView?
     var isScrollDowm:Bool = true
+    var lastOffsetY:CGFloat = 0
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         self.tableView = UITableView.init(frame: CGRect(x: 0,y: 0,width: frame.size.width/4,height: frame.size.height), style: .plain)
-        self.tableView?.backgroundColor = UIColor.init(white: 0, alpha: 0.1)
+        self.tableView?.backgroundColor = RGB(r: 230, g: 230, b: 230)
         self.tableView?.delegate = self;
         self.tableView?.dataSource = self;
         self.addSubview(self.tableView!)
@@ -26,16 +27,23 @@ class StrategyView: UIView,UITableViewDelegate,UITableViewDataSource,UICollectio
         self.tableView?.register(StrategyCell.self, forCellReuseIdentifier: "cellId")
         self.tableView?.tableFooterView = UIView.init()
         
-        let layout = UICollectionViewFlowLayout()
+        let layout = CollectionViewFlowLayout()
         self.collectionView = UICollectionView.init(frame: CGRect(x: frame.size.width/4,y: 0,width: DEF_SCREEN_WIDTH - frame.size.width/4,height: frame.size.height), collectionViewLayout: layout)
         self.collectionView?.backgroundColor = UIColor.white
         self.collectionView?.delegate = self;
         self.collectionView?.dataSource = self;
+        self.collectionView?.autoresizingMask = .flexibleHeight
         self.addSubview(self.collectionView!)
         
         LoadCollectionCellClass(view: self.collectionView!, className: StrategyCollecCell.self, name: "StrategyCollecCell")
         self.collectionView!.register(StrategyReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "StrategyReusableView")
+        
+        self.tableView?.selectRow(at: NSIndexPath(row: 0, section: 0) as IndexPath, animated: true, scrollPosition: .none)
 
+    }
+    
+    func loadData(){
+        
     }
     
     /************tableViewDelegate*******************/
@@ -44,7 +52,7 @@ class StrategyView: UIView,UITableViewDelegate,UITableViewDataSource,UICollectio
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return 20
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -60,12 +68,25 @@ class StrategyView: UIView,UITableViewDelegate,UITableViewDataSource,UICollectio
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.collectionView?.scrollToItem(at: IndexPath(row: 0, section: indexPath.row), at: .top, animated: true)
+        
+        self.scrollToTopOfSection(section: indexPath.row, animated: true)
+        self.tableView?.scrollToRow(at: IndexPath(row: indexPath.row, section: 0), at: .middle, animated: true)
+        
+    }
+    
+    func scrollToTopOfSection(section:NSInteger, animated:Bool){
+        
+        let indexPath = NSIndexPath.init(row: 0, section: section)
+        let attribute = self.collectionView?.collectionViewLayout.layoutAttributesForSupplementaryView(ofKind: UICollectionElementKindSectionHeader, at: indexPath as IndexPath)
+        let headerRact = attribute?.frame
+        let topOfHeader = CGPoint(x: 0, y: (headerRact?.origin.y)! - (self.collectionView?.contentInset.top)!)
+        self.collectionView?.setContentOffset(topOfHeader, animated: animated)
+        
     }
     
     /************collectionViewDelegate*******************/
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 10
+        return 20
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -87,23 +108,26 @@ class StrategyView: UIView,UITableViewDelegate,UITableViewDataSource,UICollectio
     }
     
     //分区头部、尾部将要显示出来的事件响应
-//    func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
-//        self.tableView?.selectRow(at: IndexPath(row: indexPath.section, section: 0), animated: true, scrollPosition: .top)
-//    }
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if self.collectionView!.isDragging{
-            self.tableView?.selectRow(at: IndexPath(row: indexPath.section, section: 0), animated: true, scrollPosition: .top)
+    func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
+        if !isScrollDowm && (collectionView.isDragging || collectionView.isDecelerating){
+            self.selectRowAt(index: indexPath.section)
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if self.collectionView!.isDragging{
-            self.tableView?.selectRow(at: IndexPath(row: indexPath.section, section: 0), animated: true, scrollPosition: .top)
+    func collectionView(_ collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, at indexPath: IndexPath) {
+        if isScrollDowm && (collectionView.isDragging || collectionView.isDecelerating){
+            self.selectRowAt(index: indexPath.section + 1)
         }
+    }
+    
+    func selectRowAt(index:NSInteger){
+        self.tableView?.selectRow(at: IndexPath(row: index, section: 0), animated: true, scrollPosition: .middle)
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-
+//        if kind == UICollectionElementKindSectionHeader {
+//
+//        }
         var reusableview:UICollectionReusableView
         reusableview = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "StrategyReusableView", for: indexPath)
 //        (reusableview as! CategoryHeadView).initWithData((self.contentData?.dataArray[indexPath.section - 1].name)!)
@@ -116,7 +140,11 @@ class StrategyView: UIView,UITableViewDelegate,UITableViewDataSource,UICollectio
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        scrollView.contentOffset.y
+        if self.collectionView == scrollView {
+            isScrollDowm = lastOffsetY < scrollView.contentOffset.y
+            lastOffsetY = scrollView.contentOffset.y
+            print(isScrollDowm)
+        }
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
