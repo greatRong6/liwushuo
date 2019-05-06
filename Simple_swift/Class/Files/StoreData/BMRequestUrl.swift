@@ -34,3 +34,11 @@ var StyleCategory_Url = BASE_URL + "v1/channels/"
 
 //礼物 分类
 var Categories_Url = BASE_URL + "v2/item_categories/tree?"
+
+//选礼神器 内容
+var Choose_List = BASE_URL + "v2/search/item_by_type"
+
+//选礼神器 标题及展示标签
+var Choose_Filter = BASE_URL + "v2/search/item_filter?"
+
+

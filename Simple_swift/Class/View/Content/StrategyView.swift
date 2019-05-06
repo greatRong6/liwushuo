@@ -46,14 +46,14 @@ class StrategyView: UIView,UITableViewDelegate,UITableViewDataSource,UICollectio
         self.contentData = ContentData.init()
         
         self.loadData()
-
+        
     }
     
     func loadData(){
         self.contentData?.loadGifeList(callBlock: { (success) in
-            self.tableView?.selectRow(at: NSIndexPath(row: 0, section: 0) as IndexPath, animated: true, scrollPosition: .none)
             self.tableView?.reloadData()
             self.collectionView?.reloadData()
+            self.tableView?.selectRow(at: NSIndexPath(row: 0, section: 0) as IndexPath, animated: true, scrollPosition: .top)
         })
     }
     
@@ -107,17 +107,17 @@ class StrategyView: UIView,UITableViewDelegate,UITableViewDataSource,UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return (self.contentData?.straArray[section].subcategories.count)!
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StrategyCollecCell", for: indexPath) as! StrategyCollecCell
-//        cell.initWithData((self.contentData?.dataArray[indexPath.section - 1].channels[indexPath.row])!)
+        cell.initWithData((self.contentData?.straArray[indexPath.section].subcategories[indexPath.row])!)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: CGFloat((self.collectionView?.frame.size.width)!)/3 - 20, height: 100)
+        return CGSize(width: 80, height: 105)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -147,7 +147,7 @@ class StrategyView: UIView,UITableViewDelegate,UITableViewDataSource,UICollectio
 //        }
         var reusableview:UICollectionReusableView
         reusableview = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "StrategyReusableView", for: indexPath)
-//        (reusableview as! CategoryHeadView).initWithData((self.contentData?.dataArray[indexPath.section - 1].name)!)
+        (reusableview as! StrategyReusableView).initWithData((self.contentData?.straArray[indexPath.section].name)!)
         return reusableview
 
     }
@@ -160,7 +160,6 @@ class StrategyView: UIView,UITableViewDelegate,UITableViewDataSource,UICollectio
         if self.collectionView == scrollView {
             isScrollDowm = lastOffsetY < scrollView.contentOffset.y
             lastOffsetY = scrollView.contentOffset.y
-            print(isScrollDowm)
         }
     }
     

@@ -17,7 +17,7 @@ class StrategyCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
                 
         name = UILabel.init(frame: CGRect(x: 10,y: 20,width: DEF_SCREEN_WIDTH,height: 20))
-        name?.font = UIFont.systemFont(ofSize: 15)
+        name?.font = UIFont.systemFont(ofSize: 14)
         self.contentView.addSubview(name!)
         
         self.redView = UIView.init(frame: CGRect(x: 0,y: 0,width: 5,height: 60))

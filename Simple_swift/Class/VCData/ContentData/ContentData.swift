@@ -193,6 +193,14 @@ class ContentData: NSObject {
                         straModel.order = item["order"] as! Int
                         straModel.status = item["status"] as! Int
                         
+                        let dataA: [AnyObject] = item["subcategories"] as! [AnyObject]
+                        straModel.subcategories = dataA.map({ (item: AnyObject) -> SubCateModel in
+                            let subModel: SubCateModel = SubCateModel()
+                            subModel.icon_url = item["icon_url"] as! String
+                            subModel.name = item["name"] as! String
+
+                            return subModel
+                        })
                         return straModel
                         
                     })
@@ -205,5 +213,52 @@ class ContentData: NSObject {
             }
         }
     }
+    
+    //选礼神器
+    func chooseGifeList(callBlock: @escaping (Bool) -> Void){
+        
+        weak var weakSelf = self
+        
+        let params = ["offset":self.pageNum,
+                      "limit":self.pageSize
+                      ]
+        
+        BQHttpTool.request(method: .get, url: Choose_List, parameters: params as NSDictionary) { ( result : AnyObject, error: Error?) in
+            if error == nil{
+                
+                if result["code"] as! Int == 200{
+                    
+                    let partArr = (result["data"] as! [String: Any])["categories"] as! [AnyObject]
+                    
+                    weakSelf?.straArray = partArr.map({ (item: AnyObject) -> CategoModel in
+                        
+                        let straModel: CategoModel = CategoModel()
+                        straModel.icon_url = item["icon_url"] as! String
+                        straModel.cateId = item["id"] as! Int
+                        straModel.name = item["name"] as! String
+                        straModel.order = item["order"] as! Int
+                        straModel.status = item["status"] as! Int
+                        
+                        let dataA: [AnyObject] = item["subcategories"] as! [AnyObject]
+                        straModel.subcategories = dataA.map({ (item: AnyObject) -> SubCateModel in
+                            let subModel: SubCateModel = SubCateModel()
+                            subModel.icon_url = item["icon_url"] as! String
+                            subModel.name = item["name"] as! String
+                            
+                            return subModel
+                        })
+                        return straModel
+                        
+                    })
+                    callBlock(true)
+                    
+                }
+                
+            }else{
+                callBlock(false)
+            }
+        }
+    }
+
     
 }

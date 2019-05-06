@@ -18,6 +18,13 @@ class ClassifyVC: BaseVC,UIScrollViewDelegate {
         
         self.navigationItem.leftBarButtonItem = nil
         
+        let searchBtn = UIButton.init(type: .custom)
+        searchBtn.frame = CGRect(x: 0,y: 0,width: 20,height: 20)
+        searchBtn.setImage(UIImage.init(named: "Feed_SearchBtn"), for: .normal)
+        searchBtn.addTarget(self, action: #selector(searchClick), for: .touchUpInside)
+        let rightBtnItem = UIBarButtonItem.init(customView: searchBtn)
+        self.navigationItem.rightBarButtonItem = rightBtnItem
+        
         self.segment = UISegmentedControl.init(items: ["攻略","礼物"])
         segment.tintColor = UIColor.white
         segment.frame = CGRect(x: 0,y: 0,width: 200,height: 30)
@@ -28,6 +35,19 @@ class ClassifyVC: BaseVC,UIScrollViewDelegate {
         self.initWithController()
         
         // Do any additional setup after loading the view.
+    }
+    
+    @objc func searchClick(){
+//        let search = SearchVC.init()
+//        search.hidesBottomBarWhenPushed = true
+//        search.title = "搜索一下"
+//        self.navigationController?.pushViewController(search, animated: true)
+        
+        let choose = ChooseGiftVC.init()
+        choose.hidesBottomBarWhenPushed = true
+        choose.title = "选礼神器"
+        self.navigationController?.pushViewController(choose, animated: true)
+
     }
     
     func initWithController(){
