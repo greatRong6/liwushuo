@@ -19,8 +19,8 @@ class WYBaseTableViewVC: BaseVC,UITableViewDelegate,UITableViewDataSource {
 
     lazy var tableView:UITableView = {
         var tableFrame:CGRect = self.view.bounds
-        tableFrame.size.height = tableFrame.size.height - KTabarHeight - KTabarHeight
-//        tableFrame.size.height -= (self.navigationController!.viewControllers.count > 1 ? 0 : KTabarHeight) + CGFloat(KNavigaHeight)
+//        tableFrame.size.height = tableFrame.size.height - KTabarHeight - KTabarHeight
+        tableFrame.size.height -= (self.navigationController!.viewControllers.count > 1 ? 0 : KTabarHeight) + CGFloat(KNavigaHeight)
         var tableView = UITableView.init(frame: tableFrame, style: .plain)
         tableView.backgroundColor = RGB(r: 230, g: 230, b: 230)
         tableView.delegate = self

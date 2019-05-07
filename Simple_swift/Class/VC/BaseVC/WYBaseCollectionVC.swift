@@ -19,8 +19,8 @@ class WYBaseCollectionVC: BaseVC,UICollectionViewDelegate,UICollectionViewDataSo
        
         var tableFrame:CGRect = self.view.bounds
         tableFrame.origin.y = 0
-        tableFrame.size.height = tableFrame.size.height - KTabarHeight - KNavigaHeight
-//        tableFrame.size.height -= (self.navigationController!.viewControllers.count > 1 ? 0 : KTabarHeight) + CGFloat(KNavigaHeight)
+//        tableFrame.size.height = tableFrame.size.height - KTabarHeight - KNavigaHeight
+        tableFrame.size.height -= (self.navigationController!.viewControllers.count > 1 ? 0 : KTabarHeight) + CGFloat(KNavigaHeight)
         let layout = UICollectionViewFlowLayout.init()
         let collecitonView = UICollectionView.init(frame: tableFrame, collectionViewLayout: layout)
         collecitonView.backgroundColor = RGB(r: 230, g: 230, b: 230)
@@ -83,6 +83,11 @@ class WYBaseCollectionVC: BaseVC,UICollectionViewDelegate,UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 0, height: 0);
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

@@ -30,6 +30,8 @@ class SimpleData: NSObject {
 
                 if result["code"] as! Int == 200{
                     
+                    self.dataArray.removeAll()
+                    
                     let array = (result["data"] as! [String: Any])["items"] as! [AnyObject]
                     
 //                    self.dataSource = SimpleModel.mj_objectArray(withKeyValuesArray: dataArray) as! [SimpleModel]

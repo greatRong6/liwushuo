@@ -15,6 +15,8 @@ class ContentData: NSObject {
     var dataArray: [CategoryModel] = []
     var partArray: [PostsModel] = []
     var straArray: [CategoModel] = []
+    var chooseArray:[ChooseModel] = []
+    var titleArray:[ChooseTitleModel] = []
 
     var styleId:Int = 0
     var requestUrl:String = ""
@@ -228,26 +230,17 @@ class ContentData: NSObject {
                 
                 if result["code"] as! Int == 200{
                     
-                    let partArr = (result["data"] as! [String: Any])["categories"] as! [AnyObject]
+                    let partArr = (result["data"] as! [String: Any])["items"] as! [AnyObject]
                     
-                    weakSelf?.straArray = partArr.map({ (item: AnyObject) -> CategoModel in
+                    weakSelf?.chooseArray.removeAll()
+                    
+                    weakSelf?.chooseArray = partArr.map({ (item: AnyObject) -> ChooseModel in
                         
-                        let straModel: CategoModel = CategoModel()
-                        straModel.icon_url = item["icon_url"] as! String
-                        straModel.cateId = item["id"] as! Int
-                        straModel.name = item["name"] as! String
-                        straModel.order = item["order"] as! Int
-                        straModel.status = item["status"] as! Int
+                        let chooseModel: ChooseModel = ChooseModel()
+                        chooseModel.contentHeight = String_Size(s: item["description"] as! String, w: (DEF_SCREEN_WIDTH - 30)/2-16, h: 10000, f: 14).height
+                        chooseModel.mj_setKeyValues(item)
                         
-                        let dataA: [AnyObject] = item["subcategories"] as! [AnyObject]
-                        straModel.subcategories = dataA.map({ (item: AnyObject) -> SubCateModel in
-                            let subModel: SubCateModel = SubCateModel()
-                            subModel.icon_url = item["icon_url"] as! String
-                            subModel.name = item["name"] as! String
-                            
-                            return subModel
-                        })
-                        return straModel
+                        return chooseModel
                         
                     })
                     callBlock(true)
@@ -260,5 +253,38 @@ class ContentData: NSObject {
         }
     }
 
-    
+    //选礼神器 头部标题
+    func chooseTitleList(callBlock: @escaping (Bool) -> Void){
+        
+        weak var weakSelf = self
+        
+        let params = Dictionary<String,String>()
+
+        BQHttpTool.request(method: .get, url: Choose_Filter, parameters: params as NSDictionary) { ( result : AnyObject, error: Error?) in
+            if error == nil{
+                
+                if result["code"] as! Int == 200{
+                    
+                    let partArr = (result["data"] as! [String: Any])["filters"] as! [AnyObject]
+                    
+                    weakSelf?.titleArray.removeAll()
+                    
+                    weakSelf?.titleArray = partArr.map({ (item: AnyObject) -> ChooseTitleModel in
+                        
+                        let titleModel: ChooseTitleModel = ChooseTitleModel()
+                        titleModel.mj_setKeyValues(item)
+                        
+                        return titleModel
+                        
+                    })
+                    callBlock(true)
+                    
+                }
+                
+            }else{
+                callBlock(false)
+            }
+        }
+    }
+
 }

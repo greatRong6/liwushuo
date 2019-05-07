@@ -46,24 +46,24 @@ extension String {
     }
     
     // MD5 加密
-    var md5 : String{
-        
-        let str = self.cString(using: String.Encoding.utf8)
-        let strLen = CUnsignedInt(self.lengthOfBytes(using: String.Encoding.utf8))
-        let digestLen = Int(CC_MD5_DIGEST_LENGTH)
-        let result = UnsafeMutablePointer<CUnsignedChar>.allocate(capacity: digestLen)
-        CC_MD5(str!, strLen, result)
-        let hash = NSMutableString()
-        
-        for i in 0 ..< digestLen {
-            
-            hash.appendFormat("%02x", result[i])
-            
-        }
-        result.deinitialize()
-        return String(format: hash as String)
-        
-    }
+//    var md5 : String{
+//
+//        let str = self.cString(using: String.Encoding.utf8)
+//        let strLen = CUnsignedInt(self.lengthOfBytes(using: String.Encoding.utf8))
+//        let digestLen = Int(CC_MD5_DIGEST_LENGTH)
+//        let result = UnsafeMutablePointer<CUnsignedChar>.allocate(capacity: digestLen)
+//        CC_MD5(str!, strLen, result)
+//        let hash = NSMutableString()
+//
+//        for i in 0 ..< digestLen {
+//
+//            hash.appendFormat("%02x", result[i])
+//
+//        }
+//        result.deinitialize()
+//        return String(format: hash as String)
+//
+//    }
     
     
     // 隐藏手机号
@@ -97,20 +97,20 @@ extension String {
         
     }
     
-    func subscriptEnd (start: Int, end: Int) -> String? {
-        if start > self.count || start < 0 || start > end {
-            return nil
-        }
-        let begin = self.index(self.startIndex, offsetBy: start)
-        var terminal: Index
-        if end >= length {
-            terminal = self.index(self.startIndex, offsetBy: count)
-        } else {
-            terminal = self.index(self.startIndex, offsetBy: end + 1)
-        }
-        let range = (begin ..< terminal)
-        return self.substring(with: range)
-    }
+//    func subscriptEnd (start: Int, end: Int) -> String? {
+//        if start > self.count || start < 0 || start > end {
+//            return nil
+//        }
+//        let begin = self.index(self.startIndex, offsetBy: start)
+//        var terminal: Index
+//        if end >= length {
+//            terminal = self.index(self.startIndex, offsetBy: count)
+//        } else {
+//            terminal = self.index(self.startIndex, offsetBy: end + 1)
+//        }
+//        let range = (begin ..< terminal)
+//        return self.substring(with: range)
+//    }
 
  
 }
