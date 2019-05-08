@@ -8,10 +8,11 @@
 
 import UIKit
 
-class ChooseGiftVC: WYBaseCollectionVC {
+class ChooseGiftVC: WYBaseCollectionVC,GZRCollectionViewLayoutDelegate {
 
     var contentData:ContentData?
     var dataSource: [ChooseModel] = []
+    var listView:SelectListView?
 
     override func loadView() {
         super.loadView()
@@ -27,6 +28,10 @@ class ChooseGiftVC: WYBaseCollectionVC {
         self.collectionView.top = 50
         self.collectionView.height = self.collectionView.height - 50
 
+        let layout : CollectionViewLayout = CollectionViewLayout()
+        layout.delegate = self
+        self.collectionView.collectionViewLayout = layout
+
         LoadCollectionCellClass(view: self.collectionView, className: ChooseViewCell.self, name: "ChooseViewCell")
         
         self.loadTitleData()
@@ -39,7 +44,7 @@ class ChooseGiftVC: WYBaseCollectionVC {
     func loadTitleData(){
         
         self.contentData?.chooseTitleList(callBlock: { (success) in
-            
+            self.addTitleView(titleArray: self.contentData!.titleArray)
         })
         
     }
@@ -51,11 +56,32 @@ class ChooseGiftVC: WYBaseCollectionVC {
         self.view.addSubview(headView)
         
         for index in 0..<titleArray.count{
-            let titleL = UILabel.init(frame: CGRect(x: DEF_SCREEN_WIDTH/CGFloat(titleArray.count)*CGFloat(index),y: 0,width: DEF_SCREEN_WIDTH/CGFloat(titleArray.count),height: 50))
-            titleL.text = titleArray[index].name
-            titleL.textAlignment = .center
-            headView.addSubview(titleL)
+            let titleBtn = UIButton.init(type: .custom)
+            titleBtn.frame = CGRect(x: DEF_SCREEN_WIDTH/CGFloat(titleArray.count)*CGFloat(index),y: 0,width: DEF_SCREEN_WIDTH/CGFloat(titleArray.count),height: 50)
+            titleBtn.tag = 1000 + index
+            titleBtn.setTitle(titleArray[index].name, for: .normal)
+            titleBtn.setTitleColor(UIColor.black, for: .normal)
+            titleBtn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+            titleBtn.addTarget(self, action: #selector(titleButtonClick(button:)), for: .touchUpInside)
+            headView.addSubview(titleBtn)
         }
+
+    }
+    
+    @objc func titleButtonClick(button:UIButton){
+        
+        for view in self.view.subviews{
+            if view.isKind(of: SelectListView.classForCoder()){
+                view.removeFromSuperview()
+            }
+        }
+        
+        let index = button.tag - 1000
+        self.listView = SelectListView.init(frame: CGRect(x: 0,y: 50,width: DEF_SCREEN_WIDTH,height: DEF_SCREEN_HEIGHT - 50))
+        self.listView!.initWithData(titleArray: (self.contentData?.titleArray[index].channels)!)
+        self.view.addSubview(self.listView!)
+        self.view.bringSubview(toFront: self.listView!)
+//        self.listView!.showView()
         
     }
     
@@ -102,14 +128,21 @@ class ChooseGiftVC: WYBaseCollectionVC {
         return cell
     }
     
-    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (DEF_SCREEN_WIDTH - 30)/2, height: 185 + self.dataSource[indexPath.row].contentHeight)
-    }
+//    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        return CGSize(width: (DEF_SCREEN_WIDTH - 30)/2, height: 185 + self.dataSource[indexPath.row].contentHeight)
+//    }
     
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
     }
     
+    func waterFlowLayout(layout: CollectionViewLayout, indexPath: NSIndexPath, itemWidth: CGFloat) -> CGFloat {
+        return 185 + self.dataSource[indexPath.row].contentHeight
+    }
+
+//    deinit {
+//        self.listView?.cancleView()
+//    }
     
 
     /*

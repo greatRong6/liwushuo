@@ -274,6 +274,13 @@ class ContentData: NSObject {
                         let titleModel: ChooseTitleModel = ChooseTitleModel()
                         titleModel.mj_setKeyValues(item)
                         
+                        let dataA: [AnyObject] = item["channels"] as! [AnyObject]
+                        titleModel.channels = dataA.map({ (item: AnyObject) -> ChannelsData in
+                            let channelModel: ChannelsData = ChannelsData()
+                            channelModel.mj_setKeyValues(item)
+                            return channelModel
+                        })
+                        
                         return titleModel
                         
                     })
