@@ -19,6 +19,13 @@ let Home_TitleUrl = BASE_URL + "v2/channels/preset"
 
 //首页
 var Home_Url =  BASE_URL + "v1/channels/"
+//http://api.liwushuo.com/v2/channels/100/items?ad=2&gender=1&generation=1&limit=20&offset=0
+
+//banner数据   http://api.liwushuo.com/v2/banners?channel=iOS
+var banners_Url =  BASE_URL + "v2/banners?channel=iOS"
+
+//banner按钮数据  http://api.liwushuo.com/v2/promotions?gender=1&generation=1
+
 
 //分类
 var Category_Url = BASE_URL + "v1/channel_groups/all"

@@ -40,20 +40,35 @@ class HomeVC: GZRViewController {
         
         let array = ["精选", "海淘", "礼物", "美食", "数码", "运动", "涨姿势"];
         self.initWithTitleButton(titleArray: array)
+//
         
         let oneVC   = HomeChildVC.init()
         oneVC.view.backgroundColor = UIColor.blue
+        self.addChildViewController(oneVC)
+        
         let twoVC   = HomeChildVC.init()
         twoVC.view.backgroundColor = UIColor.yellow
+        self.addChildViewController(twoVC)
+
         let threeVC = HomeChildVC.init()
         threeVC.view.backgroundColor = UIColor.green
+        self.addChildViewController(threeVC)
 
         let fourVC  = HomeChildVC.init()
         fourVC.view.backgroundColor = UIColor.gray
+        self.addChildViewController(fourVC)
 
         let fiveVC  = HomeChildVC.init()
+        self.addChildViewController(fiveVC)
+
+        
         let sixVC   = HomeChildVC.init()
+        self.addChildViewController(sixVC)
+
+        
         let sevenVC = HomeChildVC.init()
+        self.addChildViewController(sevenVC)
+        
         let arrayVC = [oneVC, twoVC, threeVC, fourVC, fiveVC, sixVC, sevenVC];
         self.initWithController(controllerArray: arrayVC)
         

@@ -90,6 +90,10 @@ class HomeOneVC: WYBaseTableViewVC {
         web.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(web, animated: true)
     }
+    
+    deinit {
+        print("销毁")
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

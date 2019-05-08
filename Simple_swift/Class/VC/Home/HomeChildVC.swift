@@ -18,6 +18,10 @@ class HomeChildVC: BaseVC {
         // Do any additional setup after loading the view.
     }
     
+    deinit {
+        print("销毁")
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
