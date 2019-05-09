@@ -98,6 +98,12 @@ class SingleVC: WYBaseCollectionVC {
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: (DEF_SCREEN_WIDTH-10)/2, height: 235);
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let web:LoadWebVC = LoadWebVC()
+        web.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(web, animated: true)
+    }
 
 
     override func didReceiveMemoryWarning() {

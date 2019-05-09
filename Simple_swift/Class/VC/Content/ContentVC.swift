@@ -1,40 +1,42 @@
 //
-//  ContentView.swift
+//  ContentVC.swift
 //  Simple_swift
 //
-//  Created by iosdev on 2019/4/29.
+//  Created by iosdev on 2019/5/9.
 //  Copyright © 2019 gezhenrong. All rights reserved.
 //
 
 import UIKit
 
-class ContentView: UIView,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
-    
+class ContentVC: BaseVC,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
+
     var collectionView:UICollectionView?
     var contentData:ContentData?
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        self.contentData = ContentData.init()
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
+        self.contentData = ContentData.init()
+        
         let layout = UICollectionViewFlowLayout.init()
-        self.collectionView = UICollectionView.init(frame: frame, collectionViewLayout: layout)
+        self.collectionView = UICollectionView.init(frame: CGRect(x: 0,y: 0,width: DEF_SCREEN_WIDTH,height: self.view.height - KTabarHeight - KNavigaHeight), collectionViewLayout: layout)
         self.collectionView!.delegate = self
         self.collectionView!.dataSource = self
-        self.addSubview(self.collectionView!)
+        self.view.addSubview(self.collectionView!)
         
         self.collectionView!.backgroundColor = UIColor.white
         
         LoadCollectionCellClass(view: self.collectionView!, className: ProjectViewCell.self, name: "ProjectViewCell")
         LoadCollectionCellClass(view: self.collectionView!, className: CategoryCell.self, name: "CategoryCell")
         self.collectionView!.register(CategoryHeadView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "CategoryHeadView")
-
+        
         self.loadData()
+
+        // Do any additional setup after loading the view.
     }
     
     func loadData(){
-                
+        
         self.contentData?.loadCategoryGroup(callBlock: { (success) in
             if success{
                 self.collectionView?.reloadData()
@@ -69,7 +71,7 @@ class ContentView: UIView,UICollectionViewDelegate,UICollectionViewDataSource,UI
             cell.moreButtonBlock = {(index) in
                 let morePort = MorePostsVC()
                 morePort.hidesBottomBarWhenPushed = true
-//                self.navigationController?.pushViewController(morePort, animated: true)
+                self.navigationController?.pushViewController(morePort, animated: true)
             }
             return cell
             
@@ -110,19 +112,18 @@ class ContentView: UIView,UICollectionViewDelegate,UICollectionViewDataSource,UI
         styleVC.title = self.contentData?.dataArray[indexPath.section-1].channels[indexPath.row].name
         styleVC.styleId = (self.contentData?.dataArray[indexPath.section-1].channels[indexPath.row].group_id)!
         styleVC.hidesBottomBarWhenPushed = true
-//        self.navigationController?.pushViewController(styleVC, animated: true)
+        self.navigationController?.pushViewController(styleVC, animated: true)
         
     }
 
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 
     /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
     }
     */
 

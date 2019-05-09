@@ -9,7 +9,6 @@
  */
 
 import UIKit
-import ScrollPageView
 
 class HomeVC: GZRViewController {
 
@@ -34,39 +33,41 @@ class HomeVC: GZRViewController {
         let rightBtnItem = UIBarButtonItem.init(customView: searchBtn)
         self.navigationItem.rightBarButtonItem = rightBtnItem
         
-//        self.homeData = HomeData.init()
-
-//        self.loadData()
-        
         let array = ["精选", "海淘", "礼物", "美食", "数码", "运动", "涨姿势"];
         self.initWithTitleButton(titleArray: array)
-//
         
-        let oneVC   = HomeChildVC.init()
+        let oneVC   = HomeOneVC.init()
+        oneVC.typeId = "100"
         oneVC.view.backgroundColor = UIColor.blue
         self.addChildViewController(oneVC)
         
         let twoVC   = HomeChildVC.init()
+        twoVC.typeId = "129"
         twoVC.view.backgroundColor = UIColor.yellow
         self.addChildViewController(twoVC)
 
         let threeVC = HomeChildVC.init()
+        threeVC.typeId = "111"
         threeVC.view.backgroundColor = UIColor.green
         self.addChildViewController(threeVC)
 
         let fourVC  = HomeChildVC.init()
+        fourVC.typeId = "118"
         fourVC.view.backgroundColor = UIColor.gray
         self.addChildViewController(fourVC)
 
         let fiveVC  = HomeChildVC.init()
+        fiveVC.typeId = "121"
         self.addChildViewController(fiveVC)
 
         
         let sixVC   = HomeChildVC.init()
+        sixVC.typeId = "123"
         self.addChildViewController(sixVC)
 
         
         let sevenVC = HomeChildVC.init()
+        sevenVC.typeId = "120"
         self.addChildViewController(sevenVC)
         
         let arrayVC = [oneVC, twoVC, threeVC, fourVC, fiveVC, sixVC, sevenVC];
@@ -74,19 +75,6 @@ class HomeVC: GZRViewController {
         
         // Do any additional setup after loading the view.
     }
-    
-//    func loadData(){
-//
-//        weak var weakSelf = self
-//
-//        self.homeData?.loadHomeTopData(callBlock: { (success) in
-//            if success{
-//
-//            }else{
-//
-//            }
-//        })
-//    }
 
     @objc func scanClick(){
         
@@ -127,14 +115,9 @@ class HomeVC: GZRViewController {
         }
         
         return vcArray as! [UIViewController]
+        
     }
-    
-    @objc func addFresh(notification: Notification){
-//        self.loadData();
-//        self.pageNo = 0
-//        self.pageSize = 10
-    }
-    
+
     deinit {
         NotificationCenter.default.removeObserver(self)
     }

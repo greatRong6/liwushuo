@@ -92,7 +92,7 @@ class GZRViewController: BaseVC,UIScrollViewDelegate {
         
         for index in 0..<controllerArray.count{
             let viewController:UIViewController = controllerArray[index] as! UIViewController
-            viewController.view.frame = CGRect(x: DEF_SCREEN_WIDTH * CGFloat(index),y: 0,width: DEF_SCREEN_WIDTH,height: self.scrollView.frame.size.height)
+            viewController.view.frame = CGRect(x: DEF_SCREEN_WIDTH * CGFloat(index),y: 0,width: DEF_SCREEN_WIDTH,height: self.scrollView.height)
             scrollView.addSubview(viewController.view)
         }
         

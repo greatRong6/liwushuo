@@ -32,12 +32,22 @@ class ClassifyVC: BaseVC,UIScrollViewDelegate {
         segment.addTarget(self, action: #selector(segmentedControlChange(segmented:)), for: .valueChanged)
         self.navigationItem.titleView = segment
         
-        self.initWithController()
+        let oneVC = ContentVC.init()
+        self.addChildViewController(oneVC)
+
+        let twoVC   = StrategyVC.init()
+        self.addChildViewController(twoVC)
+        
+        let arrayVC = [oneVC, twoVC];
+        self.initWithController(controllerArray: arrayVC)
+
+//        self.initWithController()
         
         // Do any additional setup after loading the view.
     }
     
     @objc func searchClick(){
+        
 //        let search = SearchVC.init()
 //        search.hidesBottomBarWhenPushed = true
 //        search.title = "搜索一下"
@@ -50,7 +60,7 @@ class ClassifyVC: BaseVC,UIScrollViewDelegate {
 
     }
     
-    func initWithController(){
+    func initWithController(controllerArray:Array<Any>){
         
         self.scrollView = UIScrollView.init(frame: CGRect(x: 0,y: 0,width: DEF_SCREEN_WIDTH,height: DEF_SCREEN_HEIGHT - KNavigaHeight - KTabarHeight))
         self.scrollView.delegate = self
@@ -59,16 +69,15 @@ class ClassifyVC: BaseVC,UIScrollViewDelegate {
         self.scrollView.showsVerticalScrollIndicator = false
         self.scrollView.showsHorizontalScrollIndicator = false;
         self.scrollView.backgroundColor = UIColor.clear
-        self.scrollView.contentSize = CGSize(width: DEF_SCREEN_WIDTH*2, height: 0)
+        self.scrollView.contentSize = CGSize(width: DEF_SCREEN_WIDTH*CGFloat(controllerArray.count), height: self.scrollView.height)
         self.view.addSubview(self.scrollView)
         
-//        let arrayVC = [ContentView(), StrategyView()];
-        let contentView = ContentView.init(frame: CGRect(x: 0,y: 0,width: DEF_SCREEN_WIDTH,height: self.scrollView.frame.self.height))
-        self.scrollView .addSubview(contentView)
+        for index in 0..<controllerArray.count{
+            let viewController:UIViewController = controllerArray[index] as! UIViewController
+            viewController.view.frame = CGRect(x: DEF_SCREEN_WIDTH * CGFloat(index),y: 0,width: DEF_SCREEN_WIDTH,height: self.scrollView.height)
+            scrollView.addSubview(viewController.view)
+        }
         
-        let strategyView = StrategyView.init(frame: CGRect(x: DEF_SCREEN_WIDTH,y: 0,width: DEF_SCREEN_WIDTH,height: self.scrollView.frame.self.height))
-        self.scrollView .addSubview(strategyView)
-
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -89,10 +98,6 @@ class ClassifyVC: BaseVC,UIScrollViewDelegate {
                 self.scrollView.contentOffset = CGPoint(x: DEF_SCREEN_WIDTH, y: 0)
             }
         }
-    }
-    
-    deinit {
-        
     }
     
 }

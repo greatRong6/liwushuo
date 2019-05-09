@@ -23,7 +23,6 @@ class MorePostsCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         imageV = UIImageView.init(frame: CGRect(x: 10,y: 5,width: DEF_SCREEN_WIDTH - 20,height: 150))
-        imageV.backgroundColor = UIColor.red
         self.contentView.addSubview(imageV)
         
         titleLabel = UILabel.init(frame: CGRect(x: 10,y: 60, width: DEF_SCREEN_WIDTH - 20,height: 20))

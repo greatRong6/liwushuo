@@ -4,7 +4,8 @@ PODS:
   - IQKeyboardManagerSwift (6.2.1)
   - MJExtension (3.0.16)
   - MJRefresh (3.1.16)
-  - ScrollPageView (0.1.4)
+  - SDCycleScrollView (1.80):
+    - SDWebImage (>= 5.0.0)
   - SDWebImage (5.0.1):
     - SDWebImage/Core (= 5.0.1)
   - SDWebImage/Core (5.0.1)
@@ -16,7 +17,7 @@ DEPENDENCIES:
   - IQKeyboardManagerSwift
   - MJExtension
   - MJRefresh
-  - ScrollPageView
+  - SDCycleScrollView
   - SDWebImage
   - SnapKit
 
@@ -27,7 +28,7 @@ SPEC REPOS:
     - IQKeyboardManagerSwift
     - MJExtension
     - MJRefresh
-    - ScrollPageView
+    - SDCycleScrollView
     - SDWebImage
     - SnapKit
 
@@ -37,10 +38,10 @@ SPEC CHECKSUMS:
   IQKeyboardManagerSwift: 0f0ae8935360b4003e6ea1ac7c19898f01e2f7c7
   MJExtension: 54dbbf6ee728f1a88e9aad904353d007831c7847
   MJRefresh: 7798e16e53a5ef7f332dd05b27664db4e29530fd
-  ScrollPageView: 81794056d616a25c4cb887098ae106a47521cf31
+  SDCycleScrollView: b3c9a5ed840c771c4938978174c7c9d9feefeb96
   SDWebImage: 27dd2c9ea07a2252f94557c9fbb6105ee94b74c9
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
 
-PODFILE CHECKSUM: 333a429588cdf927ef54361dc638b3c491c591c4
+PODFILE CHECKSUM: f06d99c5cf26c9b5e2584d65c9436062dda18cc0
 
 COCOAPODS: 1.5.3

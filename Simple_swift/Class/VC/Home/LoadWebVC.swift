@@ -17,7 +17,7 @@ class LoadWebVC: BaseVC,UIWebViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.urlStr = "https://www.baidu.com/"
+//        self.urlStr = "http://h5.vlinker.com.cn/#redirec/house_list"
         self.creatUI()
 
         // Do any additional setup after loading the view.
@@ -27,6 +27,7 @@ class LoadWebVC: BaseVC,UIWebViewDelegate {
         
         self.webView = UIWebView.init(frame: CGRect(x: 0,y: 0, width: DEF_SCREEN_WIDTH,height: DEF_SCREEN_HEIGHT - CGFloat(KNavigaHeight)))
         self.webView?.delegate = self
+        webView?.backgroundColor = UIColor.white
         self.view.addSubview(self.webView!)
         
         let urlR = URLRequest.init(url: URL.init(string: self.urlStr)!)
@@ -34,14 +35,12 @@ class LoadWebVC: BaseVC,UIWebViewDelegate {
         
     }
     
-    private func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool {
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool {
         
         self.title = self.webView?.stringByEvaluatingJavaScript(from: "document.title")
-    
 //        if (self.title?.count)! > 7{
 //            self.title = self.title.subscriptEnd
 //        }
-        
         return true
         
     }

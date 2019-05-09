@@ -10,20 +10,22 @@ import UIKit
 
 class HomeModel: NSObject {
     
-//    var content_url: String = ""
-    var cover_image_url: String = ""
-//    var created_at: Int = 0
-//    var id: Int = 0
-//    var liked: Int = 0
-//    var likes_count: Int?
-//    var share_msg: String = ""
-//    var published_at: Int?
-    var short_title: String = ""
-//    var status: Int?
-//    var type: String = ""
-//    var title: String = ""
-//    var template: String = ""
-//    var updated_at: Int?
-//    var url: String = ""
+    @objc var content_url: String = ""
+    @objc var cover_image_url: String = ""
+    @objc var short_title: String = ""
+    @objc var title: String = ""
+
+}
+
+class HomePicModel: NSObject {
+    
+    @objc var image_url: String = ""
+
+}
+
+class HomeButtonModel: NSObject {
+    
+    @objc var icon_url: String = ""
+    @objc var title: String = ""
 
 }

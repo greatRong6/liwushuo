@@ -15,7 +15,7 @@
 #import "UIButton+WebCache.h"
 #import "MJRefresh.h"
 #import "MJExtension.h"
-
+#import "SDCycleScrollView.h"
 
 
 //#import "SwipeTableView"

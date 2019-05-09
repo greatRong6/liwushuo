@@ -24,13 +24,16 @@ class HomeOneVC: WYBaseTableViewVC {
         super.viewDidLoad()
         
         self.homeData = HomeData.init()
+        
+        self.typeId = "100"
 
         LoadNibCellClass(view: self.tableView, name: "HomeChildCell")
-                
-        self.tableView.frame = CGRect(x: 0,y: 0,width: DEF_SCREEN_WIDTH,height: DEF_SCREEN_HEIGHT - 44 - CGFloat(KTabarHeight) - CGFloat(KNavigaHeight))
-
+        
         self.tableView.mj_header.beginRefreshing()
         self.tableView.separatorStyle = .none
+        
+        let headView:HomeOneHeadView = HomeOneHeadView.init(frame: CGRect(x: 0,y: 0,width: DEF_SCREEN_WIDTH,height: DEF_SCREEN_WIDTH*9/16 + 90))
+        self.tableView.tableHeaderView = headView
         
         // Do any additional setup after loading the view.
     }
@@ -39,7 +42,7 @@ class HomeOneVC: WYBaseTableViewVC {
         
         self.homeData?.pageNum = self.pageNo
         self.homeData?.pageSize = self.pageSize
-        self.homeData?.home_Url = Home_Url + "\(typeId)/items"
+        self.homeData?.home_Url = HomeData_Url + "\(typeId)/items"
 
         weak var weakSelf = self
         self.homeData?.loadProductData(callBlock: { (success) in
@@ -88,6 +91,7 @@ class HomeOneVC: WYBaseTableViewVC {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let web:LoadWebVC = LoadWebVC()
         web.hidesBottomBarWhenPushed = true
+        web.urlStr = dataSource[indexPath.row].content_url
         self.navigationController?.pushViewController(web, animated: true)
     }
     

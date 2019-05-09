@@ -10,9 +10,8 @@ pod 'SnapKit'
 pod 'IQKeyboardManagerSwift'
 pod 'MJExtension'
 pod 'MJRefresh'
-pod 'ScrollPageView'
 pod 'ImageViewer'
-
+pod 'SDCycleScrollView'
 
 
 end  
