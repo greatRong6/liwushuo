@@ -24,7 +24,9 @@ class MineVC: BaseVC,UITableViewDelegate,UITableViewDataSource {
 
         self.tableView?.register(StrategyCell.self, forCellReuseIdentifier: "cellId")
         self.tableView?.tableFooterView = UIView.init()
-
+        
+        
+        
         // Do any additional setup after loading the view.
     }
     
