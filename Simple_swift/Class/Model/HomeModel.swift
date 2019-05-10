@@ -27,5 +27,6 @@ class HomeButtonModel: NSObject {
     
     @objc var icon_url: String = ""
     @objc var title: String = ""
+    @objc var target_url: String = ""
 
 }

@@ -32,7 +32,15 @@ class HomeOneVC: WYBaseTableViewVC {
         self.tableView.mj_header.beginRefreshing()
         self.tableView.separatorStyle = .none
         
-        let headView:HomeOneHeadView = HomeOneHeadView.init(frame: CGRect(x: 0,y: 0,width: DEF_SCREEN_WIDTH,height: DEF_SCREEN_WIDTH*9/16 + 90))
+        let headView:HomeOneHeadView = HomeOneHeadView.init(frame: CGRect(x: 0,y: 0,width: DEF_SCREEN_WIDTH,height: DEF_SCREEN_WIDTH*9/16 + 100))
+        headView.selectBtnItems = {
+            (index:Int,urlStr:String) -> ()
+            in
+            let web:LoadWebVC = LoadWebVC()
+            web.urlStr = urlStr
+            web.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(web, animated: true)
+        }
         self.tableView.tableHeaderView = headView
         
         // Do any additional setup after loading the view.
