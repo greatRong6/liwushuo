@@ -57,7 +57,6 @@ class ProjectViewCell: UICollectionViewCell , UICollectionViewDelegate,UICollect
         
         weak var weakSelf = self
         
-        self.contentData?.requestUrl = Collections_Url + "\(4)/posts"
         self.contentData?.loadCollectionsPosts(callBlock: { (success) in
             if success{
                 weakSelf?.collectionView.reloadData()

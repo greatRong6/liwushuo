@@ -28,24 +28,21 @@ class ContentData: NSObject {
         
         weak var weakSelf = self
         
-        let params = ["gender": 1,
-                      "generation": 1,
-                      "limit": 20,
+        let params = ["limit": 6,
                       "offset": 0]
         
-        BQHttpTool.request(method: .get, url: requestUrl, parameters: params as NSDictionary) { ( result : AnyObject, error: Error?) in
+        BQHttpTool.request(method: .get, url: CollectionsLookAll_Url, parameters: params as NSDictionary) { ( result : AnyObject, error: Error?) in
             if error == nil{
                 if result["code"] as! Int == 200{
                     
-                    let partArr = (result["data"] as! [String: Any])["posts"] as! [AnyObject]
+                    let partArr = (result["data"] as! [String: Any])["collections"] as! [AnyObject]
                     
                     weakSelf?.partArray = partArr.map({ (item: AnyObject) -> PostsModel in
                         
                             let postsModel: PostsModel = PostsModel()
                             postsModel.title = item["title"] as! String
-                            postsModel.cover_image_url = item["cover_image_url"] as! String
-                            postsModel.content_url = item["content_url"] as! String
-                            postsModel.group_id = item["id"] as! Int
+                            postsModel.banner_image_url = item["banner_image_url"] as! String
+                            postsModel.cover_webp_url = item["cover_webp_url"] as! String
                             return postsModel
                         
                     })

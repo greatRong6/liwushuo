@@ -16,13 +16,15 @@ class ProjectCell: UICollectionViewCell {
         super.init(frame: frame)
         
         self.imageV =  UIImageView.init(frame: CGRect(x: 0,y: 0,width: 130,height: 80))
+        imageV.layer.cornerRadius = 3
+        imageV.layer.masksToBounds = true
         self.contentView.addSubview(self.imageV)
         
     }
     
     func initWithData(_ model: PostsModel){
         
-        self.imageV.sd_setImage(with: URL(string: model.cover_image_url as String), placeholderImage: UIImage(named: "nopic.jpg"))
+        self.imageV.sd_setImage(with: URL(string: model.banner_image_url as String), placeholderImage: UIImage(named: "nopic.jpg"))
         
     }
     

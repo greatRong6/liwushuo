@@ -85,7 +85,7 @@ class ContentVC: BaseVC,UICollectionViewDelegate,UICollectionViewDataSource,UICo
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.section == 0{
-            return CGSize(width: DEF_SCREEN_WIDTH,height: 120)
+            return CGSize(width: DEF_SCREEN_WIDTH,height: 130)
         }
         return CGSize(width: DEF_SCREEN_WIDTH / 4, height: 100)
     }

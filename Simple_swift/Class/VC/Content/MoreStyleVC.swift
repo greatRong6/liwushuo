@@ -33,7 +33,7 @@ class MoreStyleVC: WYBaseTableViewVC {
         
         self.contentData?.pageNum = self.pageNo
         self.contentData?.pageSize = self.pageSize
-        self.contentData?.requestUrl = BASE_URL + "v1/channels/\(styleId)/items"
+        self.contentData?.requestUrl = BASE_URL + "v2/channels/\(styleId)/items"
         
         self.contentData?.loadStylesOrCategory(callBlock: { (success) in
             if success{

@@ -28,16 +28,13 @@ var BanBtn_Url =  BASE_URL + "v2/promotions?gender=1&generation=1"
 
 
 //分类
-var Category_Url = BASE_URL + "v1/channel_groups/all"
-
-//专题v1/channels/items
-var Collections_Url = BASE_URL + "v1/collections"
+var Category_Url = BASE_URL + "v2/channel_groups/all"
 
 //专题  查看全部
-var CollectionsLookAll_Url = BASE_URL + "v1/collections"
+var CollectionsLookAll_Url = BASE_URL + "v2/collections"
 
 //风格  查看
-var StyleCategory_Url = BASE_URL + "v1/channels/"
+var StyleCategory_Url = BASE_URL + "v2/channels/"
 
 //礼物 分类
 var Categories_Url = BASE_URL + "v2/item_categories/tree?"
