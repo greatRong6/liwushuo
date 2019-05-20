@@ -34,7 +34,7 @@ class WYBaseTabBarVC: UITabBarController {
         contentVC.title = "分类"
         contentVC.tabBarItem = UITabBarItem.init(title: "分类", image: UIImage.init(named: "TabBar_category"), selectedImage: UIImage.init(named: "TabBar_category_selected"))
         
-        let mineVC = MineVC.init()
+        let mineVC = PeopleVC.init()
         mineVC.title = "我的"
         mineVC.tabBarItem = UITabBarItem.init(title: "我的", image: UIImage.init(named: "TabBar_me_boy"), selectedImage: UIImage.init(named: "TabBar_me_boy_selected"))
         

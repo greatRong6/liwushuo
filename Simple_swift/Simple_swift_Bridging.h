@@ -16,6 +16,7 @@
 #import "MJRefresh.h"
 #import "MJExtension.h"
 #import "SDCycleScrollView.h"
+#import "JXCategoryView.h"
 
 
 //#import "SwipeTableView"
